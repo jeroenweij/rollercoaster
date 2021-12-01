@@ -1,0 +1,35 @@
+{
+    "safemode": "true", 
+    "platform": 
+    {
+        "platform": 
+        {
+            "os": "linux",
+            "arch": "arm"
+        }
+    },
+    "hostname": "@module@",
+    "process": 
+    {
+        "user": 
+        {
+            "uid": 0,
+            "gid": 0
+        },
+        "args": 
+        [
+            "/usr/local/flexblox/modules/@module@/rootfs/usr/local/flexblox/bin/@module@"
+        ],
+        "env": 
+        [
+            "LD_LIBRARY_PATH=/usr/local/flexblox/modules/@module@/rootfs/usr/local/flexblox/lib:/lib:/usr/lib"
+        ],
+        "cwd": "/usr/local/flexblox/modules/@module@/rootfs"
+    },
+    "annotations": 
+    {
+        "version": "@major@.@minor@.@revision@.@svnrevision@",
+        "buildinfo": "@major@.@minor@.@revision@.@svnrevision@ svn:@svnlabel@ host:@hostname@ @generationdate@"
+    }
+}
+
