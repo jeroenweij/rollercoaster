@@ -3,10 +3,10 @@
 *************************************************************/
 
 #include "StorageTrack.h"
-#include "NodeIds.h"
+#include "IoConfig.h"
 
 StorageTrack::StorageTrack(IoOutput& outputHandler)
-    : Block(outputHandler, RID::storageAproached, RID::storageBlocked, RID::storageBrake)
+    : Block(outputHandler, NodeId::storageAproached.id, NodeId::storageBlocked.id, NodeId::storageBrake.id)
 {
     Hold();
 }

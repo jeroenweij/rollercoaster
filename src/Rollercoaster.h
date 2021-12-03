@@ -8,7 +8,7 @@
 
 #include "IoInput.h"
 #include "IoOutput.h"
-#include "Logger.h"
+#include <tools/Logger.h>
 
 #include "Lift.h"
 #include "Station.h"
@@ -23,7 +23,7 @@ class Rollercoaster
     /// Destructor.
     virtual ~Rollercoaster() { }
 
-    void Stop();
+    void Init();
 
   private:
     IoInput inputHandler;

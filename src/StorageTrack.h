@@ -7,7 +7,7 @@
 #include "Block.h"
 #include "IoInput.h"
 #include "IoOutput.h"
-#include "Logger.h"
+#include <tools/Logger.h>
 
 class StorageTrack : public Block
 {

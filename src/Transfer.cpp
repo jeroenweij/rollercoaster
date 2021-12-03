@@ -3,25 +3,25 @@
 *************************************************************/
 
 #include "Transfer.h"
-#include "NodeIds.h"
+#include "IoConfig.h"
 
 Transfer::Transfer(IoInput& inputHandler, IoOutput& outputHandler)
-    : Block(outputHandler, RID::transferAproached, RID::transferBlocked, RID::transferBrake)
+    : Block(outputHandler, NodeId::transferAproached.id, NodeId::transferBlocked.id, NodeId::transferBrake.id)
     , enterStorage(false)
     , exitStorage(false)
     , storage(outputHandler)
 {
-    inputHandler.AddCallback(RID::liftLeft, this, &Transfer::OnTrainApproaching, true);
-    inputHandler.AddCallback(RID::transfertEnter, this, &Transfer::OnTrainEnter, true);
-    inputHandler.AddCallback(RID::transfertSet, this, &Transfer::OnTrainSet, true);
-    inputHandler.AddCallback(RID::stationSet, this, &Transfer::OnTrainLeft, true);
-    inputHandler.AddCallback(RID::liftEnter, this, &Transfer::OnNextBlockFreed, true);
+    inputHandler.AddCallback(NodeId::liftLeft.id, this, &Transfer::OnTrainApproaching, true);
+    inputHandler.AddCallback(NodeId::transfertEnter.id, this, &Transfer::OnTrainEnter, true);
+    inputHandler.AddCallback(NodeId::transfertSet.id, this, &Transfer::OnTrainSet, true);
+    inputHandler.AddCallback(NodeId::stationSet.id, this, &Transfer::OnTrainLeft, true);
+    inputHandler.AddCallback(NodeId::liftEnter.id, this, &Transfer::OnNextBlockFreed, true);
 
-    inputHandler.AddCallback(RID::storageSet, this, &Transfer::OnStorageTrainSet, true);
+    inputHandler.AddCallback(NodeId::storageSet.id, this, &Transfer::OnStorageTrainSet, true);
 
     // setting switches
-    inputHandler.AddCallback(RID::enterSwitch, this, &Transfer::OnEnterSwitchChanged);
-    inputHandler.AddCallback(RID::exitSwitch, this, &Transfer::OnExitSwitchChanged);
+    inputHandler.AddCallback(NodeId::enterSwitch.id, this, &Transfer::OnEnterSwitchChanged);
+    inputHandler.AddCallback(NodeId::exitSwitch.id, this, &Transfer::OnExitSwitchChanged);
 
     Hold();
     SetSwitches();
@@ -157,8 +157,8 @@ void Transfer::OnNextBlockFreed()
 
 void Transfer::SetSwitches()
 {
-    outputHandler.writeTwostate(RID::transferInSwitch, this->enterStorage);
-    outputHandler.writeTwostate(RID::transferOutSwitch, this->exitStorage);
+    outputHandler.writeTwostate(NodeId::transferInSwitch.id, this->enterStorage);
+    outputHandler.writeTwostate(NodeId::transferOutSwitch.id, this->exitStorage);
 }
 
 void Transfer::Release()

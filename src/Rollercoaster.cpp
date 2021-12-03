@@ -4,7 +4,7 @@
 
 #include "Rollercoaster.h"
 
-#include "NodeIds.h"
+#include "IoConfig.h"
 
 using NodeLib::NodeMaster;
 
@@ -16,13 +16,12 @@ Rollercoaster::Rollercoaster(NodeMaster& nodeMaster)
     , lift(inputHandler, outputHandler)
     , transfer(inputHandler, outputHandler)
 {
-    outputHandler.disableAllOutputs();
     station.SetNextBlock(&lift);
     lift.SetNextBlock(&transfer);
     transfer.SetNextBlock(&station);
 }
 
-void Rollercoaster::Stop()
+void Rollercoaster::Init()
 {
-   outputHandler.disableAllOutputs();
+    // TODO
 }

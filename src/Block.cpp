@@ -48,7 +48,7 @@ void Block::SetStatus(EStatus newStatus)
 {
     if (this->status != newStatus)
     {
-        LOG_INFO("Set Status to " << EStatusToString(newStatus));
+        LOG_INFO("Set Status to " << newStatus);
         this->status = newStatus;
         outputHandler.writeTwostate(this->approachId, status == EStatus::EXPECTING || status == EStatus::LEAVING);
         outputHandler.writeTwostate(this->blockId, status == EStatus::BLOCKED || status == EStatus::LEAVING);

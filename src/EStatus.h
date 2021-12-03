@@ -5,6 +5,7 @@
 #pragma once
 
 #include "WString.h"
+#include <tools/SStream.h>
 
 enum class EStatus
 {
@@ -14,21 +15,24 @@ enum class EStatus
     FREE,
 };
 
-inline String EStatusToString(EStatus status)
+inline std::stringstream& operator<<(std::stringstream& oStrStream, const EStatus status )
 {
     switch (status)
     {
         case EStatus::EXPECTING:
-            return "EXPECTING";
+            oStrStream << "EXPECTING";
             break;
         case EStatus::BLOCKED:
-            return "BLOCKED";
+            oStrStream << "BLOCKED";
             break;
         case EStatus::LEAVING:
-            return "LEAVING";
+            oStrStream << "LEAVING";
             break;
         case EStatus::FREE:
-            return "FREE";
+            oStrStream << "FREE";
             break;
+
     }
+
+    return oStrStream;
 }

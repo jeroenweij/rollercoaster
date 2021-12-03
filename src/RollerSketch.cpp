@@ -3,16 +3,27 @@
 *************************************************************/
 #include <Arduino.h>
 #include <NodeLib/NodeMaster.h>
+
+#include "IoConfig.h"
 #include "Rollercoaster.h"
 
-NodeLib::NodeMaster node(2);
+static int PIN_LED = 17;
+
+NodeLib::NodeMaster node(2, PIN_LED);
 Rollercoaster rollercoaster(node);
 
 void setup(void)
 {
+    Serial.begin(115200);
+    delay(2000);
+    Serial.println("Setting up");
 
     node.Init();
-    rollercoaster.Stop();
+
+    IoConfig config(node);
+    config.ConfigureIo();
+
+    rollercoaster.Init();
 }
 
 void loop(void)

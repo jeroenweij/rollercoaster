@@ -4,11 +4,9 @@
 
 #pragma once
 
-#include "Logger.h"
+#include <tools/Logger.h>
 #include <NodeLib/NodeMaster.h>
 #include <NodeLib/id.h>
-
-using NodeLib::Id;
 
 class IoOutput
 {
@@ -16,8 +14,8 @@ class IoOutput
     IoOutput(NodeLib::NodeMaster& node);
     ~IoOutput() { }
 
-    void disableAllOutputs();
-    void writeTwostate(const Id& id, bool value);
+    void SetOutput(const NodeLib::Id& id);
+    void writeTwostate(const NodeLib::Id& id, bool value);
 
   private:
     NodeLib::NodeMaster& node;

@@ -11,7 +11,6 @@ add_subdirectory(tools)
 add_executable(${CMAKE_PROJECT_NAME}
     src/RollerSketch.cpp
     src/EStatus.h
-    src/NodeIds.h
     src/Block.h
     src/Block.cpp
     src/Station.h
@@ -28,11 +27,8 @@ add_executable(${CMAKE_PROJECT_NAME}
     src/IoInput.cpp
     src/IoOutput.h
     src/IoOutput.cpp
-    src/Logger.h
-    src/Logger.cpp
-    src/SStream.h
-    src/SStream.cpp
-    src/FunctionPtr.h
+    src/IoConfig.h
+    src/IoConfig.cpp
 )
 
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
@@ -41,6 +37,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     NodeLib
+    libtools
 )
 
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES SUFFIX ".elf")

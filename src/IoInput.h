@@ -4,11 +4,11 @@
 
 #pragma once
 
-#include "FunctionPtr.h"
 #include <NodeLib/IVariableHandler.h>
 #include <NodeLib/NodeMaster.h>
+#include <tools/FunctionPtr.h>
 
-#include "Logger.h"
+#include <tools/Logger.h>
 
 const int maxCallbacks = 15;
 
@@ -44,6 +44,7 @@ class IoInput : NodeLib::IVariableHandler
   private:
     int AddCallbackx(const NodeLib::Id& id, funct function);
     void CallCallbacks(const NodeLib::Id& id, const Value& value);
+    void SetInput(const NodeLib::Id& id);
 
     // --- IVariableHandler interface implementation ---
     virtual void ReceivedMessage(const NodeLib::Message& message);

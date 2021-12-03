@@ -3,15 +3,15 @@
 *************************************************************/
 
 #include "Lift.h"
-#include "NodeIds.h"
+#include "IoConfig.h"
 
 Lift::Lift(IoInput& inputHandler, IoOutput& outputHandler)
-    : Block(outputHandler, RID::liftAproached, RID::liftBlocked, RID::liftMotor)
+    : Block(outputHandler, NodeId::liftAproached.id, NodeId::liftBlocked.id, NodeId::liftMotor.id)
 {
-    inputHandler.AddCallback(RID::liftEnter, this, &Lift::OnTrainEnter, true);
-    inputHandler.AddCallback(RID::liftSet, this, &Lift::OnTrainSet, true);
-    inputHandler.AddCallback(RID::liftLeft, this, &Lift::OnTrainLeft, true);
-    inputHandler.AddCallback(RID::stationSet, this, &Lift::OnNextBlockFreed, true);
+    inputHandler.AddCallback(NodeId::liftEnter.id, this, &Lift::OnTrainEnter, true);
+    inputHandler.AddCallback(NodeId::liftSet.id, this, &Lift::OnTrainSet, true);
+    inputHandler.AddCallback(NodeId::liftLeft.id, this, &Lift::OnTrainLeft, true);
+    inputHandler.AddCallback(NodeId::stationSet.id, this, &Lift::OnNextBlockFreed, true);
 
     Hold();
 }

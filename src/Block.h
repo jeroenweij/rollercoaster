@@ -8,7 +8,7 @@
 
 #include "EStatus.h"
 #include "IoOutput.h"
-#include "Logger.h"
+#include <tools/Logger.h>
 
 using NodeLib::Id;
 

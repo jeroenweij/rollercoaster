@@ -7,7 +7,7 @@
 #include "Block.h"
 #include "IoInput.h"
 #include "IoOutput.h"
-#include "Logger.h"
+#include <tools/Logger.h>
 #include "StorageTrack.h"
 
 class Transfer : public Block

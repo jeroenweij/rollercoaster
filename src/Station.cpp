@@ -3,15 +3,15 @@
 *************************************************************/
 
 #include "Station.h"
-#include "NodeIds.h"
+#include "IoConfig.h"
 
 Station::Station(IoInput& inputHandler, IoOutput& outputHandler)
-    : Block(outputHandler, RID::stationAproached, RID::stationBlocked, RID::stationBrake)
+    : Block(outputHandler, NodeId::stationAproached.id, NodeId::stationBlocked.id, NodeId::stationBrake.id)
 {
-    inputHandler.AddCallback(RID::stationEnter, this, &Station::OnTrainEnter, true);
-    inputHandler.AddCallback(RID::stationSet, this, &Station::OnTrainSet, true);
-    inputHandler.AddCallback(RID::liftEnter, this, &Station::OnTrainLeft, true);
-    inputHandler.AddCallback(RID::liftLeft, this, &Station::OnNextBlockFreed, true);
+    inputHandler.AddCallback(NodeId::stationEnter.id, this, &Station::OnTrainEnter, true);
+    inputHandler.AddCallback(NodeId::stationSet.id, this, &Station::OnTrainSet, true);
+    inputHandler.AddCallback(NodeId::liftEnter.id, this, &Station::OnTrainLeft, true);
+    inputHandler.AddCallback(NodeId::liftLeft.id, this, &Station::OnNextBlockFreed, true);
 
     Hold();
 }
