@@ -4,21 +4,22 @@
 
 #pragma once
 
-#include "Logger.h"
 #include "Block.h"
 #include "IoInput.h"
 #include "IoOutput.h"
+#include "Logger.h"
 
-class Station : public Block
+class StorageTrack : public Block
 {
-public:
-    Station(IoInput& inputHandler, IoOutput& outputHandler);
-    ~Station() {}
+  public:
+    StorageTrack(IoOutput& outputHandler);
+    ~StorageTrack() { }
 
+    void OnTrainApproaching();
     void OnTrainEnter();
     void OnTrainLeft();
-    void OnTrainSet();
+    void OnTrainSet(bool exitStorage, bool nextFree);
     void OnNextBlockFreed();
 
-private:
+  private:
 };

@@ -4,17 +4,17 @@
 
 #pragma once
 
-#include "Logger.h"
 #include "Block.h"
 #include "IoInput.h"
 #include "IoOutput.h"
+#include "Logger.h"
 #include "StorageTrack.h"
 
 class Transfer : public Block
 {
-public:
+  public:
     Transfer(IoInput& inputHandler, IoOutput& outputHandler);
-    ~Transfer() {}
+    ~Transfer() { }
 
     void OnStorageTrainSet();
     void OnTrainApproaching();
@@ -31,8 +31,8 @@ public:
 
     bool IsApproaching() override;
     bool IsFree() override;
-private:
 
+  private:
     void SetSwitches();
 
     bool enterStorage;

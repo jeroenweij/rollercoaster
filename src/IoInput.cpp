@@ -9,10 +9,10 @@
 using NodeLib::Id;
 using NodeLib::NodeMaster;
 
-IoInput::IoInput(NodeMaster &nodeMaster)
-    : logZone(Logger::get("Io input handler"))
+IoInput::IoInput(NodeMaster &nodeMaster) :
+    numCallbacks(0)
 {
-    nodeMaster.RegisterHandler(*this);
+    nodeMaster.RegisterHandler(this);
 }
 
 void IoInput::ReceivedMessage(const NodeLib::Message &message)
@@ -22,20 +22,26 @@ void IoInput::ReceivedMessage(const NodeLib::Message &message)
 
 void IoInput::CallCallbacks(const Id& id, const Value& value)
 {
-    auto range = this->callBackMap.equal_range(id);
-    if (range.first != range.second)
-    {
-        LOG_DEBUG(this->logZone, "Recieving Call Callbacks");
-        for (auto found = range.first; found != range.second; ++found)
-        {
-            (found->second)(value);
+    for (int i=0; i< numCallbacks; i++){
+        if (callBackMap[i].id == id){
+            LOG_DEBUG("Calling Callback");
+            callBackMap[i].callback(value);
         }
-        LOG_DEBUG(this->logZone, "Recieving done ");
     }
 }
 
 int IoInput::AddCallbackx(const Id& id, funct function)
 {
-    callBackMap.insert( std::make_pair(id, function));
+    if (numCallbacks < maxCallbacks)
+    {
+        callBackMap[numCallbacks].id       = id;
+        callBackMap[numCallbacks].callback = function;
+
+        numCallbacks++;
+    }
+    else
+    {
+        LOG_ERROR("Callback table is full");
+    }
     return 1;
 }

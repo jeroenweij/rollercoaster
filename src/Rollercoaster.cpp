@@ -15,7 +15,6 @@ Rollercoaster::Rollercoaster(NodeMaster& nodeMaster)
     , station(inputHandler, outputHandler)
     , lift(inputHandler, outputHandler)
     , transfer(inputHandler, outputHandler)
-    , logZone(Logger::get("Rollercoaster"))
 {
     outputHandler.disableAllOutputs();
     station.SetNextBlock(&lift);

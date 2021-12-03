@@ -2,7 +2,7 @@
 # Created by J. Weij
 #************************************************************/
 
-add_executable(${PROJECT_NAME}
+target_sources(${CMAKE_PROJECT_NAME} PRIVATE 
     EStatus.h
     NodeIds.h
     Block.h
@@ -17,19 +17,15 @@ add_executable(${PROJECT_NAME}
     StorageTrack.cpp
     Rollercoaster.h
     Rollercoaster.cpp
-    main.cpp
     IoInput.h
     IoInput.cpp
     IoOutput.h
     IoOutput.cpp
     Logger.h
     Logger.cpp
+    SStream.h
+    SStream.cpp
+    FunctionPtr.h
 )
 
-target_include_directories(${PROJECT_NAME} PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}
-)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE
-    NodeLib
-)

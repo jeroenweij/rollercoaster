@@ -4,34 +4,31 @@
 
 #pragma once
 
-#include <ostream>
+#include "WString.h"
 
 enum class EStatus
 {
     EXPECTING,
     BLOCKED,
     LEAVING,
-    FREE
+    FREE,
 };
 
-inline std::ostream& operator<<(std::ostream& oStrStream, const EStatus status )
+inline String EStatusToString(EStatus status)
 {
     switch (status)
     {
         case EStatus::EXPECTING:
-            oStrStream << "EXPECTING";
+            return "EXPECTING";
             break;
         case EStatus::BLOCKED:
-            oStrStream << "BLOCKED";
+            return "BLOCKED";
             break;
         case EStatus::LEAVING:
-            oStrStream << "LEAVING";
+            return "LEAVING";
             break;
         case EStatus::FREE:
-            oStrStream << "FREE";
+            return "FREE";
             break;
-
     }
-
-    return oStrStream;
 }

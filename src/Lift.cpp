@@ -6,7 +6,7 @@
 #include "NodeIds.h"
 
 Lift::Lift(IoInput& inputHandler, IoOutput& outputHandler)
-    : Block(outputHandler, RID::liftAproached, RID::liftBlocked, RID::liftMotor, Logger::get("LiftBlock"))
+    : Block(outputHandler, RID::liftAproached, RID::liftBlocked, RID::liftMotor)
 {
     inputHandler.AddCallback(RID::liftEnter, this, &Lift::OnTrainEnter, true);
     inputHandler.AddCallback(RID::liftSet, this, &Lift::OnTrainSet, true);
@@ -18,14 +18,14 @@ Lift::Lift(IoInput& inputHandler, IoOutput& outputHandler)
 
 void Lift::OnTrainEnter()
 {
-    LOG_INFO(this->logZone, "OnTrainEnter");
+    LOG_INFO("OnTrainEnter");
     Block::OnTrainEnter();
     Release();
 }
 
 void Lift::OnTrainSet()
 {
-    LOG_INFO(this->logZone, "OnTrainSet");
+    LOG_INFO("OnTrainSet");
     Block::OnTrainSet();
     if (IsNextFree())
     {
@@ -39,14 +39,14 @@ void Lift::OnTrainSet()
 
 void Lift::OnTrainLeft()
 {
-    LOG_INFO(this->logZone, "OnTrainLeft");
+    LOG_INFO("OnTrainLeft");
     Block::OnTrainLeft();
     Hold();
 }
 
 void Lift::OnNextBlockFreed()
 {
-    LOG_INFO(this->logZone, "OnNextBlockFreed");
+    LOG_INFO("OnNextBlockFreed");
     if (IsBlocked()){
         Release();
     }

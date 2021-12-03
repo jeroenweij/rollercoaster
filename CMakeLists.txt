@@ -6,4 +6,41 @@ project(rollercoaster C CXX)
 
 add_subdirectory(node/Software/lib)
 add_subdirectory(tools)
-add_subdirectory(rollercoaster)
+
+
+add_executable(${CMAKE_PROJECT_NAME}
+    src/RollerSketch.cpp
+    src/EStatus.h
+    src/NodeIds.h
+    src/Block.h
+    src/Block.cpp
+    src/Station.h
+    src/Station.cpp
+    src/Lift.h
+    src/Lift.cpp
+    src/Transfer.h
+    src/Transfer.cpp
+    src/StorageTrack.h
+    src/StorageTrack.cpp
+    src/Rollercoaster.h
+    src/Rollercoaster.cpp
+    src/IoInput.h
+    src/IoInput.cpp
+    src/IoOutput.h
+    src/IoOutput.cpp
+    src/Logger.h
+    src/Logger.cpp
+    src/SStream.h
+    src/SStream.cpp
+    src/FunctionPtr.h
+)
+
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/rollercoaster
+)
+
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
+    NodeLib
+)
+
+set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES SUFFIX ".elf")

@@ -2,13 +2,11 @@
 * Created by J. Weij
 *************************************************************/
 
+#include "Arduino.h"
 #include "Logger.h"
-#include <iostream>
 
 Logger::Logger()
-{
-
-}
+{ }
 
 bool Logger::error()
 {
@@ -30,15 +28,20 @@ bool Logger::debug()
     return true;
 }
 
-void Logger::logMsg(const std::string &msg, const char *level, const char *file, const int line)
+void Logger::logMsg(const String &msg, const char* level, const char* file, const int line)
 {
-    std::cout << level << " " << file << ":" << line << " " << msg << std::endl;
+    Serial.print(level);
+    Serial.print(" ");
+    Serial.print(file);
+    Serial.print(":");
+    Serial.print(line);
+    Serial.print(" ");
+    Serial.println(msg);
 }
 
-Logger &Logger::get(const std::string &name)
+Logger &Logger::Get()
 {
     static Logger log;
+
     return log;
 }
-
-

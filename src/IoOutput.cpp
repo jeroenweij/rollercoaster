@@ -7,15 +7,14 @@
 
 IoOutput::IoOutput(NodeLib::NodeMaster &node)
     : node(node)
-    , logZone(Logger::get("Io output handler"))
 {
 
 }
 
 void IoOutput::writeTwostate(const Id& id, bool value)
 {
-    LOG_INFO(this->logZone, "writing node " << id.node << " channel " << id.channel << " Value:" << value);
-    node.WriteMessage(id, value? 1:0);
+    LOG_INFO("writing node " << id.node << " channel " << id.channel << " Value:" << value);
+    node.QueueMessage(id, value? 1:0);
 }
 
 void IoOutput::disableAllOutputs()

@@ -6,7 +6,7 @@
 #include "NodeIds.h"
 
 Station::Station(IoInput& inputHandler, IoOutput& outputHandler)
-    : Block(outputHandler, RID::stationAproached, RID::stationBlocked, RID::stationBrake, Logger::get("StationBlock"))
+    : Block(outputHandler, RID::stationAproached, RID::stationBlocked, RID::stationBrake)
 {
     inputHandler.AddCallback(RID::stationEnter, this, &Station::OnTrainEnter, true);
     inputHandler.AddCallback(RID::stationSet, this, &Station::OnTrainSet, true);
@@ -18,14 +18,14 @@ Station::Station(IoInput& inputHandler, IoOutput& outputHandler)
 
 void Station::OnTrainEnter()
 {
-    LOG_INFO(this->logZone, "OnTrainEnter");
+    LOG_INFO("OnTrainEnter");
     Block::OnTrainEnter();
     Release();
 }
 
 void Station::OnTrainSet()
 {
-    LOG_INFO(this->logZone, "OnTrainSet");
+    LOG_INFO("OnTrainSet");
     Block::OnTrainSet();
     if (IsNextFree())
     {
@@ -39,14 +39,14 @@ void Station::OnTrainSet()
 
 void Station::OnTrainLeft()
 {
-    LOG_INFO(this->logZone, "OnTrainLeft");
+    LOG_INFO("OnTrainLeft");
     Block::OnTrainLeft();
     Hold();
 }
 
 void Station::OnNextBlockFreed()
 {
-    LOG_INFO(this->logZone, "OnNextBlockFreed");
+    LOG_INFO("OnNextBlockFreed");
     if (IsBlocked()){
         Release();
     }

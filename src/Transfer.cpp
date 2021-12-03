@@ -6,7 +6,7 @@
 #include "NodeIds.h"
 
 Transfer::Transfer(IoInput& inputHandler, IoOutput& outputHandler)
-    : Block(outputHandler, RID::transferAproached, RID::transferBlocked, RID::transferBrake, Logger::get("TransferBlock"))
+    : Block(outputHandler, RID::transferAproached, RID::transferBlocked, RID::transferBrake)
     , enterStorage(false)
     , exitStorage(false)
     , storage(outputHandler)
@@ -49,7 +49,7 @@ bool Transfer::SetEnterSwitch(bool value)
 {
     if (this->enterStorage != value)
     {
-        LOG_INFO(this->logZone, "SetEnterSwitch " << value);
+        LOG_INFO("SetEnterSwitch " << value);
         if (!IsApproaching())
         {
             this->enterStorage = value;
@@ -67,7 +67,7 @@ bool Transfer::SetExitSwitch(bool value)
 {
     if (this->exitStorage != value)
     {
-        LOG_INFO(this->logZone, "SetExitSwitch " << value);
+        LOG_INFO("SetExitSwitch " << value);
         if (!storage.IsLeaving() && !IsLeaving())
         {
             this->exitStorage = value;
@@ -88,7 +88,7 @@ void Transfer::OnStorageTrainSet()
 
 void Transfer::OnTrainApproaching()
 {
-    LOG_INFO(this->logZone, "OnTrainApproaching");
+    LOG_INFO("OnTrainApproaching");
     if (enterStorage)
     {
         storage.OnTrainApproaching();
@@ -101,7 +101,7 @@ void Transfer::OnTrainApproaching()
 
 void Transfer::OnTrainEnter()
 {
-    LOG_INFO(this->logZone, "OnTrainEnter");
+    LOG_INFO("OnTrainEnter");
     if (enterStorage)
     {
         storage.OnTrainEnter();
@@ -114,7 +114,7 @@ void Transfer::OnTrainEnter()
 
 void Transfer::OnTrainSet()
 {
-    LOG_INFO(this->logZone, "OnTrainSet");
+    LOG_INFO("OnTrainSet");
     Block::OnTrainSet();
     if (!this->exitStorage && IsNextFree())
     {
@@ -128,7 +128,7 @@ void Transfer::OnTrainSet()
 
 void Transfer::OnTrainLeft()
 {
-    LOG_INFO(this->logZone, "OnTrainLeft");
+    LOG_INFO("OnTrainLeft");
     if (this->exitStorage)
     {
         storage.OnTrainLeft();
@@ -142,7 +142,7 @@ void Transfer::OnTrainLeft()
 
 void Transfer::OnNextBlockFreed()
 {
-    LOG_INFO(this->logZone, "OnNextBlockFreed");
+    LOG_INFO("OnNextBlockFreed");
     if (this->exitStorage)
     {
         storage.OnNextBlockFreed();
@@ -169,7 +169,7 @@ void Transfer::Release()
     }
     else
     {
-        LOG_ERROR(this->logZone, "releasing while switch is set");
+        LOG_ERROR("releasing while switch is set");
     }
 }
 

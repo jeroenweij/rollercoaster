@@ -5,17 +5,18 @@
 #pragma once
 
 #include <NodeLib/id.h>
-#include "IoOutput.h"
+
 #include "EStatus.h"
+#include "IoOutput.h"
 #include "Logger.h"
 
 using NodeLib::Id;
 
 class Block
 {
-public:
-    Block(IoOutput& outputHandler, const Id& approachId, const Id& blockId, const Id& deviceId, Logger& logger);
-    ~Block() {}
+  public:
+    Block(IoOutput& outputHandler, const Id& approachId, const Id& blockId, const Id& deviceId);
+    ~Block() { }
 
     void OnTrainEnter();
     void OnTrainLeft();
@@ -30,7 +31,7 @@ public:
     bool IsLeaving();
     virtual bool IsApproaching();
 
-protected:
+  protected:
     void SetStatus(EStatus newStatus);
     void Release();
     void Hold();
@@ -39,9 +40,8 @@ protected:
     const Id& approachId;
     const Id& blockId;
     const Id& deviceId;
-    Logger& logZone;
 
-private:
+  private:
     EStatus status;
 
     Block* nextBlock;

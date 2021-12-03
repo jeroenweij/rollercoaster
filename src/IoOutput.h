@@ -4,22 +4,21 @@
 
 #pragma once
 
+#include "Logger.h"
 #include <NodeLib/NodeMaster.h>
 #include <NodeLib/id.h>
-#include "Logger.h"
 
 using NodeLib::Id;
 
 class IoOutput
 {
-public:
+  public:
     IoOutput(NodeLib::NodeMaster& node);
-    ~IoOutput(){ }
+    ~IoOutput() { }
 
     void disableAllOutputs();
     void writeTwostate(const Id& id, bool value);
 
-private:
+  private:
     NodeLib::NodeMaster& node;
-    Logger& logZone;
 };

@@ -4,12 +4,11 @@
 
 #include "Block.h"
 
-Block::Block(IoOutput& outputHandler, const Id& approachId, const Id& blockId, const NodeLib::Id& deviceId, Logger& logger)
+Block::Block(IoOutput& outputHandler, const Id& approachId, const Id& blockId, const NodeLib::Id& deviceId)
     : outputHandler(outputHandler)
     , approachId(approachId)
     , blockId(blockId)
     , deviceId(deviceId)
-    , logZone(logger)
     , status(EStatus::FREE)
 {
 
@@ -39,7 +38,7 @@ bool Block::IsNextFree()
 {
     if (this->nextBlock == nullptr)
     {
-        LOG_ERROR(this->logZone, "nextblock is not set");
+        LOG_ERROR("nextblock is not set");
         return false;
     }
     return this->nextBlock->IsFree();
@@ -49,7 +48,7 @@ void Block::SetStatus(EStatus newStatus)
 {
     if (this->status != newStatus)
     {
-        LOG_INFO(this->logZone, "Set Status to " << newStatus);
+        LOG_INFO("Set Status to " << EStatusToString(newStatus));
         this->status = newStatus;
         outputHandler.writeTwostate(this->approachId, status == EStatus::EXPECTING || status == EStatus::LEAVING);
         outputHandler.writeTwostate(this->blockId, status == EStatus::BLOCKED || status == EStatus::LEAVING);

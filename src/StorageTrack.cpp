@@ -6,7 +6,7 @@
 #include "NodeIds.h"
 
 StorageTrack::StorageTrack(IoOutput& outputHandler)
-    : Block(outputHandler, RID::storageAproached, RID::storageBlocked, RID::storageBrake, Logger::get("StorageTrackBlock"))
+    : Block(outputHandler, RID::storageAproached, RID::storageBlocked, RID::storageBrake)
 {
     Hold();
 }
@@ -14,19 +14,19 @@ StorageTrack::StorageTrack(IoOutput& outputHandler)
 
 void StorageTrack::OnTrainApproaching()
 {
-    LOG_INFO(this->logZone, "OnTrainApproaching");
+    LOG_INFO("OnTrainApproaching");
     Block::OnTrainEnter();
 }
 
 void StorageTrack::OnTrainEnter()
 {
-    LOG_INFO(this->logZone, "OnTrainEnter");
+    LOG_INFO("OnTrainEnter");
     Release();
 }
 
 void StorageTrack::OnTrainSet(bool exitStorage, bool nextFree)
 {
-    LOG_INFO(this->logZone, "OnTrainSet");
+    LOG_INFO("OnTrainSet");
     Block::OnTrainSet();
     if (exitStorage && nextFree)
     {
@@ -40,14 +40,14 @@ void StorageTrack::OnTrainSet(bool exitStorage, bool nextFree)
 
 void StorageTrack::OnTrainLeft()
 {
-    LOG_INFO(this->logZone, "OnTrainLeft");
+    LOG_INFO("OnTrainLeft");
     Block::OnTrainLeft();
     Hold();
 }
 
 void StorageTrack::OnNextBlockFreed()
 {
-    LOG_INFO(this->logZone, "OnNextBlockFreed");
+    LOG_INFO("OnNextBlockFreed");
     if (IsBlocked())
     {
         Release();
