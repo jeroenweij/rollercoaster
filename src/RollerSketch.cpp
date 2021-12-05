@@ -9,11 +9,12 @@
 
 static int PIN_LED = 17;
 
-NodeLib::NodeMaster node(2, PIN_LED);
+NodeLib::NodeMaster node(2);
 Rollercoaster rollercoaster(node);
 
 void setup(void)
 {
+    pinMode(PIN_LED, OUTPUT);
     Serial.begin(115200);
     delay(2000);
     Serial.println("Setting up");
