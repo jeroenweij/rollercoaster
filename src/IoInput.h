@@ -10,7 +10,7 @@
 
 #include <tools/Logger.h>
 
-const int maxCallbacks = 15;
+const int maxCallbacks = 30;
 
 using Value = uint8_t;
 

@@ -4,10 +4,11 @@
 
 #pragma once
 
+#include <tools/Logger.h>
+
 #include "Block.h"
 #include "IoInput.h"
 #include "IoOutput.h"
-#include <tools/Logger.h>
 #include "StorageTrack.h"
 
 class Transfer : public Block

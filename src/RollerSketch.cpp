@@ -17,7 +17,7 @@ void setup(void)
     pinMode(PIN_LED, OUTPUT);
     Serial.begin(115200);
     delay(2000);
-    Serial.println("Setting up");
+    Serial.println(F("Setting up"));
 
     node.Init();
 

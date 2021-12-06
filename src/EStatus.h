@@ -15,7 +15,7 @@ enum class EStatus
     FREE,
 };
 
-inline std::stringstream& operator<<(std::stringstream& oStrStream, const EStatus status )
+inline std::stringstream& operator<<(std::stringstream& oStrStream, const EStatus status)
 {
     switch (status)
     {
@@ -31,7 +31,6 @@ inline std::stringstream& operator<<(std::stringstream& oStrStream, const EStatu
         case EStatus::FREE:
             oStrStream << "FREE";
             break;
-
     }
 
     return oStrStream;

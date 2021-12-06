@@ -3,9 +3,9 @@
 *************************************************************/
 
 #pragma once
+#include <NodeLib/EPinMode.h>
 #include <NodeLib/NodeMaster.h>
 #include <NodeLib/id.h>
-#include <NodeLib/EPinMode.h>
 
 namespace NodeId
 {
@@ -30,7 +30,7 @@ namespace NodeId
     static const IoChannel stationEnter(1, NodeLib::ChannelId::DIGITAL_1, Operation::VALUE, PinMode::DIGITAL_IN);
     static const IoChannel stationSet(1, NodeLib::ChannelId::DIGITAL_2, Operation::VALUE, PinMode::DIGITAL_IN);
     // Out
-    static const IoChannel stationBrake(1,  NodeLib::ChannelId::DIGITAL_3, Operation::SET, PinMode::DIGITAL_OUT);
+    static const IoChannel stationBrake(1, NodeLib::ChannelId::DIGITAL_3, Operation::SET, PinMode::DIGITAL_OUT);
 
     // UI Out
     static const IoChannel stationAproached(0, NodeLib::ChannelId::DIGITAL_1, Operation::SET, PinMode::DIGITAL_OUT);

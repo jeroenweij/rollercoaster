@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include <tools/Logger.h>
 #include <NodeLib/NodeMaster.h>
 #include <NodeLib/id.h>
+#include <tools/Logger.h>
 
 class IoOutput
 {
