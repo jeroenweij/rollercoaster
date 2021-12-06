@@ -29,6 +29,8 @@ add_executable(${CMAKE_PROJECT_NAME}
     src/IoOutput.cpp
     src/IoConfig.h
     src/IoConfig.cpp
+    src/TrackSwitch.h
+    src/TrackSwitch.cpp
 )
 
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE

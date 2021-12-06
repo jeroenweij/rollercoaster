@@ -16,6 +16,7 @@ class IoOutput
 
     void SetOutput(const NodeLib::Id& id);
     void writeTwostate(const NodeLib::Id& id, bool value);
+    void WriteValue(const NodeLib::Id& id, Value value);
 
   private:
     NodeLib::NodeMaster& node;

@@ -10,6 +10,7 @@
 #include "IoInput.h"
 #include "IoOutput.h"
 #include "StorageTrack.h"
+#include "TrackSwitch.h"
 
 class Transfer : public Block
 {
@@ -24,20 +25,16 @@ class Transfer : public Block
     void OnTrainSet();
     void OnNextBlockFreed();
 
-    void OnEnterSwitchChanged(const Value& value);
-    void OnExitSwitchChanged(const Value& value);
-
-    bool SetEnterSwitch(bool value);
-    bool SetExitSwitch(bool value);
-
     bool IsApproaching() override;
     bool IsFree() override;
 
-  private:
-    void SetSwitches();
+    bool EnterSwitchSafeToMove();
+    bool ExitSwitchSafeToMove();
 
-    bool enterStorage;
-    bool exitStorage;
+  private:
     void Release();
+
+    TrackSwitch enterStorage;
+    TrackSwitch exitStorage;
     StorageTrack storage;
 };

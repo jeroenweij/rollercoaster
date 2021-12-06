@@ -5,11 +5,11 @@
 #include "Transfer.h"
 #include "IoConfig.h"
 
-Transfer::Transfer(IoInput& inputHandler, IoOutput& outputHandler)
-    : Block(outputHandler, NodeId::transferAproached.id, NodeId::transferBlocked.id, NodeId::transferBrake.id)
-    , enterStorage(false)
-    , exitStorage(false)
-    , storage(outputHandler)
+Transfer::Transfer(IoInput& inputHandler, IoOutput& outputHandler) :
+    Block(outputHandler, NodeId::transferAproached.id, NodeId::transferBlocked.id, NodeId::transferBrake.id),
+    enterStorage(inputHandler,outputHandler, NodeId::enterSwitch.id, NodeId::transferInSwitch.id, 0, 180, *this, &Transfer::EnterSwitchSafeToMove),
+    exitStorage(inputHandler,outputHandler, NodeId::exitSwitch.id, NodeId::transferOutSwitch.id, 0, 180, *this, &Transfer::ExitSwitchSafeToMove),
+    storage(outputHandler)
 {
     inputHandler.AddCallback(NodeId::liftLeft.id, this, &Transfer::OnTrainApproaching, true);
     inputHandler.AddCallback(NodeId::transfertEnter.id, this, &Transfer::OnTrainEnter, true);
@@ -19,77 +19,18 @@ Transfer::Transfer(IoInput& inputHandler, IoOutput& outputHandler)
 
     inputHandler.AddCallback(NodeId::storageSet.id, this, &Transfer::OnStorageTrainSet, true);
 
-    // setting switches
-    inputHandler.AddCallback(NodeId::enterSwitch.id, this, &Transfer::OnEnterSwitchChanged);
-    inputHandler.AddCallback(NodeId::exitSwitch.id, this, &Transfer::OnExitSwitchChanged);
-
     Hold();
-    SetSwitches();
-}
-
-void Transfer::OnEnterSwitchChanged(const Value& value)
-{
-    bool enableSwitch = value > 0;
-    if (this->enterStorage != enableSwitch)
-    {
-        SetEnterSwitch(enableSwitch);
-    }
-}
-
-void Transfer::OnExitSwitchChanged(const Value& value)
-{
-    bool enableSwitch = value > 0;
-    if (this->exitStorage != enableSwitch)
-    {
-        SetExitSwitch(enableSwitch);
-    }
-}
-
-bool Transfer::SetEnterSwitch(bool value)
-{
-    if (this->enterStorage != value)
-    {
-        LOG_INFO("SetEnterSwitch " << value);
-        if (!IsApproaching())
-        {
-            this->enterStorage = value;
-            SetSwitches();
-        }
-        else
-        {
-            return false;
-        }
-    }
-    return true;
-}
-
-bool Transfer::SetExitSwitch(bool value)
-{
-    if (this->exitStorage != value)
-    {
-        LOG_INFO("SetExitSwitch " << value);
-        if (!storage.IsLeaving() && !IsLeaving())
-        {
-            this->exitStorage = value;
-            SetSwitches();
-        }
-        else
-        {
-            return false;
-        }
-    }
-    return true;
 }
 
 void Transfer::OnStorageTrainSet()
 {
-    storage.OnTrainSet(this->exitStorage, IsNextFree());
+    storage.OnTrainSet(this->exitStorage.IsSet(), IsNextFree());
 }
 
 void Transfer::OnTrainApproaching()
 {
     LOG_INFO("OnTrainApproaching");
-    if (enterStorage)
+    if (enterStorage.IsSet())
     {
         storage.OnTrainApproaching();
     }
@@ -102,7 +43,7 @@ void Transfer::OnTrainApproaching()
 void Transfer::OnTrainEnter()
 {
     LOG_INFO("OnTrainEnter");
-    if (enterStorage)
+    if (enterStorage.IsSet())
     {
         storage.OnTrainEnter();
     }
@@ -116,7 +57,7 @@ void Transfer::OnTrainSet()
 {
     LOG_INFO("OnTrainSet");
     Block::OnTrainSet();
-    if (!this->exitStorage && IsNextFree())
+    if (!this->exitStorage.IsSet() && IsNextFree())
     {
         Release();
     }
@@ -129,7 +70,7 @@ void Transfer::OnTrainSet()
 void Transfer::OnTrainLeft()
 {
     LOG_INFO("OnTrainLeft");
-    if (this->exitStorage)
+    if (this->exitStorage.IsSet())
     {
         storage.OnTrainLeft();
     }
@@ -143,27 +84,22 @@ void Transfer::OnTrainLeft()
 void Transfer::OnNextBlockFreed()
 {
     LOG_INFO("OnNextBlockFreed");
-    if (this->exitStorage)
+    if (this->exitStorage.IsSet())
     {
         storage.OnNextBlockFreed();
     }
     else
     {
-        if (IsBlocked()){
+        if (IsBlocked())
+        {
             Release();
         }
     }
 }
 
-void Transfer::SetSwitches()
-{
-    outputHandler.writeTwostate(NodeId::transferInSwitch.id, this->enterStorage);
-    outputHandler.writeTwostate(NodeId::transferOutSwitch.id, this->exitStorage);
-}
-
 void Transfer::Release()
 {
-    if (!exitStorage)
+    if (!exitStorage.IsSet())
     {
         Block::Release();
     }
@@ -175,7 +111,7 @@ void Transfer::Release()
 
 bool Transfer::IsFree()
 {
-    if (this->enterStorage)
+    if (this->enterStorage.IsSet())
     {
         return storage.IsFree();
     }
@@ -187,7 +123,7 @@ bool Transfer::IsFree()
 
 bool Transfer::IsApproaching()
 {
-    if (this->enterStorage)
+    if (this->enterStorage.IsSet())
     {
         return storage.IsApproaching();
     }
@@ -195,4 +131,14 @@ bool Transfer::IsApproaching()
     {
         return Block::IsApproaching();
     }
+}
+
+bool Transfer::EnterSwitchSafeToMove()
+{
+    return !IsApproaching();
+}
+
+bool Transfer::ExitSwitchSafeToMove()
+{
+    return !storage.IsLeaving() && !IsLeaving();
 }

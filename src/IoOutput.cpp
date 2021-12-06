@@ -18,6 +18,11 @@ IoOutput::IoOutput(NodeLib::NodeMaster &node)
 
 void IoOutput::writeTwostate(const Id& id, bool value)
 {
+    WriteValue(id, value? 1:0);
+}
+
+void IoOutput::WriteValue(const NodeLib::Id &id, Value value)
+{
     LOG_INFO("writing node " << id.node << " channel " << id.channel << " Value:" << value);
-    node.QueueMessage(id, value? 1:0);
+    node.QueueMessage(id, value);
 }
