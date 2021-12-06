@@ -29,7 +29,7 @@ void Block::OnTrainLeft()
     SetStatus (EStatus::FREE);
 }
 
-void Block::SetNextBlock(Block* block)
+void Block::SetNextBlock(IBlock* block)
 {
     this->nextBlock = block;
 }

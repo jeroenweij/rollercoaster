@@ -6,13 +6,14 @@
 
 #include <NodeLib/id.h>
 
+#include "IBlock.h"
 #include "EStatus.h"
 #include "IoOutput.h"
 #include <tools/Logger.h>
 
 using NodeLib::Id;
 
-class Block
+class Block : public IBlock
 {
   public:
     Block(IoOutput& outputHandler, const Id& approachId, const Id& blockId, const Id& deviceId);
@@ -24,7 +25,7 @@ class Block
 
     virtual void OnNextBlockFreed() = 0;
 
-    void SetNextBlock(Block* block);
+    void SetNextBlock(IBlock* block);
     bool IsNextFree();
     virtual bool IsFree();
     bool IsBlocked();
@@ -44,5 +45,5 @@ class Block
   private:
     EStatus status;
 
-    Block* nextBlock;
+    IBlock* nextBlock;
 };

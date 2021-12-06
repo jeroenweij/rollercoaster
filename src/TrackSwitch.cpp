@@ -2,6 +2,7 @@
 * Created by J. Weij
 *************************************************************/
 
+#include "Transfer.h"
 #include "TrackSwitch.h"
 
 TrackSwitch::TrackSwitch(IoInput& inputHandler, IoOutput& outputHandler, const NodeLib::Id& inputId, const NodeLib::Id& outputId, const Value valueWhenSet, const Value valueWhenUnset, Transfer& parent, bool (Transfer::*func)()) :
@@ -25,11 +26,12 @@ void TrackSwitch::Set(const Value& value)
         {
             set = setTo;
             WriteOutput();
+            parent.SwitchChanged();
         }
     }
 }
 
-bool TrackSwitch::IsSet()
+bool TrackSwitch::IsSet() const
 {
     return set;
 }

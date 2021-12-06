@@ -11,6 +11,7 @@ add_subdirectory(tools)
 add_executable(${CMAKE_PROJECT_NAME}
     src/RollerSketch.cpp
     src/EStatus.h
+    src/IBlock.h
     src/Block.h
     src/Block.cpp
     src/Station.h
@@ -19,8 +20,8 @@ add_executable(${CMAKE_PROJECT_NAME}
     src/Lift.cpp
     src/Transfer.h
     src/Transfer.cpp
-    src/StorageTrack.h
-    src/StorageTrack.cpp
+    src/BrakeRun.h
+    src/BrakeRun.cpp
     src/Rollercoaster.h
     src/Rollercoaster.cpp
     src/IoInput.h

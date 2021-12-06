@@ -18,7 +18,7 @@ class TrackSwitch
     TrackSwitch(IoInput& inputHandler, IoOutput& outputHandler, const NodeLib::Id& inputId, const NodeLib::Id& outputId, const Value valueWhenSet, const Value valueWhenUnset, Transfer &parent, bool (Transfer::*func)());
 
     void Set(const Value& value);
-    bool IsSet();
+    bool IsSet() const;
 
   private:
     void WriteOutput();

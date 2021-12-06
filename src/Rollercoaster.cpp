@@ -14,7 +14,7 @@ Rollercoaster::Rollercoaster(NodeMaster& nodeMaster)
     , outputHandler(nodeMaster)
     , station(inputHandler, outputHandler)
     , lift(inputHandler, outputHandler)
-    , transfer(inputHandler, outputHandler)
+    , transfer(inputHandler, outputHandler, lift)
 {
     station.SetNextBlock(&lift);
     lift.SetNextBlock(&transfer);

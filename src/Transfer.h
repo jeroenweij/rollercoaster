@@ -6,35 +6,36 @@
 
 #include <tools/Logger.h>
 
-#include "Block.h"
+#include "IBlock.h"
 #include "IoInput.h"
 #include "IoOutput.h"
-#include "StorageTrack.h"
+#include "BrakeRun.h"
 #include "TrackSwitch.h"
+#include "Lift.h"
 
-class Transfer : public Block
+class Transfer : public IBlock
 {
   public:
-    Transfer(IoInput& inputHandler, IoOutput& outputHandler);
+    Transfer(IoInput& inputHandler, IoOutput& outputHandler, Lift& lift);
     ~Transfer() { }
 
-    void OnStorageTrainSet();
     void OnTrainApproaching();
-    void OnTrainEnter();
     void OnTrainLeft();
-    void OnTrainSet();
     void OnNextBlockFreed();
+    void SetNextBlock(IBlock* block);
+    void SwitchChanged();
 
-    bool IsApproaching() override;
+    bool IsApproaching();
     bool IsFree() override;
 
     bool EnterSwitchSafeToMove();
     bool ExitSwitchSafeToMove();
 
   private:
-    void Release();
 
     TrackSwitch enterStorage;
     TrackSwitch exitStorage;
-    StorageTrack storage;
+    BrakeRun brakeRun;
+    BrakeRun storage;
+    Lift &lift;
 };
