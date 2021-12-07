@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 
-set(CMAKE_TOOLCHAIN_FILE tools/cmake/ArduinoToolchain.cmake)
-
+set(TARGET_PLATFORM atmega2560)
+include(tools/cmake/arduino.cmake)
 project(rollercoaster C CXX)
 
 add_subdirectory(node/Software/lib)

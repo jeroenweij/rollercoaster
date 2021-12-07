@@ -7,7 +7,6 @@
 #include <NodeLib/IVariableHandler.h>
 #include <NodeLib/NodeMaster.h>
 #include <tools/FunctionPtr.h>
-
 #include <tools/Logger.h>
 
 const int maxCallbacks = 30;
