@@ -30,11 +30,11 @@ void IoConfig::ConfigureIo()
     ConfigureChannel(NodeId::liftBlocked);
     ConfigureChannel(NodeId::brakeRunEnter);
     ConfigureChannel(NodeId::brakeRunSet);
-    ConfigureChannel(NodeId::transferBrake);
+    ConfigureChannel(NodeId::brakerunBrake);
     ConfigureChannel(NodeId::transferInSwitch);
     ConfigureChannel(NodeId::transferOutSwitch);
-    ConfigureChannel(NodeId::transferAproached);
-    ConfigureChannel(NodeId::transferBlocked);
+    ConfigureChannel(NodeId::brakerunAproached);
+    ConfigureChannel(NodeId::brakerunBlocked);
     ConfigureChannel(NodeId::storageSet);
     ConfigureChannel(NodeId::storageBrake);
     ConfigureChannel(NodeId::storageAproached);

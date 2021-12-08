@@ -6,9 +6,9 @@
 #include "IoConfig.h"
 
 BrakeRunIds brakeRunIds = {
-    .approachLed = NodeId::transferAproached.id,
-    .blockedLed = NodeId::transferBlocked.id,
-    .blockDevice = NodeId::transferBrake.id,
+    .approachLed = NodeId::brakerunAproached.id,
+    .blockedLed = NodeId::brakerunBlocked.id,
+    .blockDevice = NodeId::brakerunBrake.id,
     .onTrainEnter = NodeId::brakeRunEnter.id,
     .onTrainSet = NodeId::brakeRunSet.id
 };
