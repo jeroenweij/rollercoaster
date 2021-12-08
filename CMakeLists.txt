@@ -8,6 +8,7 @@ project(rollercoaster C CXX)
 
 add_subdirectory(node/Software/lib)
 add_subdirectory(tools)
+add_subdirectory(pins)
 
 
 add_executable(${CMAKE_PROJECT_NAME}
@@ -43,6 +44,8 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     NodeLib
     libtools
+    pins
 )
 
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES SUFFIX ".elf")
+add_dependencies(${CMAKE_PROJECT_NAME} generate_pins)

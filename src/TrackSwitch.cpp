@@ -2,10 +2,13 @@
 * Created by J. Weij
 *************************************************************/
 
-#include "Transfer.h"
 #include "TrackSwitch.h"
+#include "Arduino.h"
+#include "Transfer.h"
 
-TrackSwitch::TrackSwitch(IoInput& inputHandler, IoOutput& outputHandler, const NodeLib::Id& inputId, const NodeLib::Id& outputId, const Value valueWhenSet, const Value valueWhenUnset, Transfer& parent, bool (Transfer::*func)()) :
+TrackSwitch::TrackSwitch(IoOutput& outputHandler, const int inputPin, const NodeLib::Id& outputId, const Value valueWhenSet, const Value valueWhenUnset, Transfer& parent, bool (Transfer::*func)()) :
+    inputPin(inputPin),
+    nextUpdate(0),
     outputHandler(outputHandler),
     outputId(outputId),
     valueWhenSet(valueWhenSet),
@@ -14,20 +17,34 @@ TrackSwitch::TrackSwitch(IoInput& inputHandler, IoOutput& outputHandler, const N
     parent(parent),
     SafeToMove(func)
 {
-    inputHandler.AddCallback(inputId, this, &TrackSwitch::Set);
 }
 
-void TrackSwitch::Set(const Value& value)
+void TrackSwitch::Init()
 {
-    const bool setTo = value > 0;
-    if (setTo != set)
+    pinMode(inputPin, INPUT_PULLUP);
+}
+
+void TrackSwitch::Loop()
+{
+    if (millis() > nextUpdate)
     {
-        if ((parent.*SafeToMove)())
+        const bool setTo = !digitalRead(inputPin);
+        if (setTo != set)
         {
-            set = setTo;
-            WriteOutput();
-            parent.SwitchChanged();
+            Set(setTo);
         }
+        nextUpdate = millis() + 100;
+    }
+}
+
+void TrackSwitch::Set(const bool setTo)
+{
+    LOG_INFO("Setting Switch " << (setTo ? "ON" : "OFF"));
+    if ((parent.*SafeToMove)())
+    {
+        set = setTo;
+        WriteOutput();
+        parent.SwitchChanged();
     }
 }
 

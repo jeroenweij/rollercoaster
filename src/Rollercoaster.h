@@ -24,6 +24,7 @@ class Rollercoaster
     virtual ~Rollercoaster() { }
 
     void Init();
+    void Loop();
 
   private:
     IoInput inputHandler;

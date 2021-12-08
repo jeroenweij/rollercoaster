@@ -39,8 +39,6 @@ void IoConfig::ConfigureIo()
     ConfigureChannel(NodeId::storageBrake);
     ConfigureChannel(NodeId::storageAproached);
     ConfigureChannel(NodeId::storageBlocked);
-    ConfigureChannel(NodeId::enterSwitch);
-    ConfigureChannel(NodeId::exitSwitch);
 }
 
 void IoConfig::ConfigureChannel(const NodeId::IoChannel& channel)

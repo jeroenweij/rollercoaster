@@ -4,6 +4,7 @@
 
 #include "Transfer.h"
 #include "IoConfig.h"
+#include <pins.h>
 
 BrakeRunIds brakeRunIds = {
     .approachLed = NodeId::brakerunAproached.id,
@@ -21,9 +22,9 @@ BrakeRunIds storageTrackIds = {
     .onTrainSet = NodeId::storageSet.id
 };
 
-Transfer::Transfer(IoInput& inputHandler, IoOutput& outputHandler, Lift &lift) :
-    enterStorage(inputHandler, outputHandler, NodeId::enterSwitch.id, NodeId::transferInSwitch.id, 0, 180, *this, &Transfer::EnterSwitchSafeToMove),
-    exitStorage(inputHandler, outputHandler, NodeId::exitSwitch.id, NodeId::transferOutSwitch.id, 0, 180, *this, &Transfer::ExitSwitchSafeToMove),
+Transfer::Transfer(IoInput& inputHandler, IoOutput& outputHandler, Lift& lift) :
+    enterStorage(outputHandler, PIN_SWITCH_1, NodeId::transferInSwitch.id, 180, 0, *this, &Transfer::EnterSwitchSafeToMove),
+    exitStorage(outputHandler, PIN_SWITCH_2, NodeId::transferOutSwitch.id, 180, 0, *this, &Transfer::ExitSwitchSafeToMove),
     brakeRun(outputHandler, inputHandler, brakeRunIds, exitStorage, false),
     storage(outputHandler, inputHandler, brakeRunIds, exitStorage, true),
     lift(lift)
@@ -31,6 +32,18 @@ Transfer::Transfer(IoInput& inputHandler, IoOutput& outputHandler, Lift &lift) :
     inputHandler.AddCallback(NodeId::liftLeft.id, this, &Transfer::OnTrainApproaching, true);
     inputHandler.AddCallback(NodeId::stationSet.id, this, &Transfer::OnTrainLeft, true);
     inputHandler.AddCallback(NodeId::liftEnter.id, this, &Transfer::OnNextBlockFreed, true);
+}
+
+void Transfer::Init()
+{
+    exitStorage.Init();
+    enterStorage.Init();
+}
+
+void Transfer::Loop()
+{
+    exitStorage.Loop();
+    enterStorage.Loop();
 }
 
 void Transfer::OnTrainApproaching()
@@ -82,26 +95,30 @@ void Transfer::SwitchChanged()
 {
     if (this->exitStorage.IsSet())
     {
-       if (storage.IsNextFree()){
-           storage.OnNextBlockFreed();
-       }
+        if (storage.IsNextFree())
+        {
+            storage.OnNextBlockFreed();
+        }
     }
     else
     {
-        if (brakeRun.IsNextFree()){
+        if (brakeRun.IsNextFree())
+        {
             brakeRun.OnNextBlockFreed();
         }
     }
 
     if (this->enterStorage.IsSet())
     {
-        if (storage.IsFree()){
+        if (storage.IsFree())
+        {
             lift.OnNextBlockFreed();
         }
     }
     else
     {
-        if (brakeRun.IsFree()){
+        if (brakeRun.IsFree())
+        {
             lift.OnNextBlockFreed();
         }
     }

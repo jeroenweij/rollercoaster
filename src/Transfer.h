@@ -18,6 +18,8 @@ class Transfer : public IBlock
   public:
     Transfer(IoInput& inputHandler, IoOutput& outputHandler, Lift& lift);
     ~Transfer() { }
+    void Init();
+    void Loop();
 
     void OnTrainApproaching();
     void OnTrainLeft();

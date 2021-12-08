@@ -23,5 +23,10 @@ Rollercoaster::Rollercoaster(NodeMaster& nodeMaster)
 
 void Rollercoaster::Init()
 {
-    // TODO
+    transfer.Init();
+}
+
+void Rollercoaster::Loop()
+{
+    transfer.Loop();
 }

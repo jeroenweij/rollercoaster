@@ -35,3 +35,5 @@ node
 build
 
 CMakeLists.txt.user
+
+pins/.~lock.pins.csv#

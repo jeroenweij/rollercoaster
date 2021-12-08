@@ -72,11 +72,6 @@ namespace NodeId
     // UI Out
     static const IoChannel storageAproached(7, NodeLib::ChannelId::ANALOG_1, Operation::SET, PinMode::DIGITAL_OUT);
     static const IoChannel storageBlocked(7, NodeLib::ChannelId::ANALOG_2, Operation::SET, PinMode::DIGITAL_OUT);
-
-    // Switches
-    // UI In
-    static const IoChannel enterSwitch(7, NodeLib::ChannelId::SERVO_1, Operation::VALUE, PinMode::DIGITAL_IN);
-    static const IoChannel exitSwitch(7, NodeLib::ChannelId::SERVO_2, Operation::VALUE, PinMode::DIGITAL_IN);
 }
 
 class IoConfig

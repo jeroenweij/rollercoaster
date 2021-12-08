@@ -15,14 +15,18 @@ class Transfer;
 class TrackSwitch
 {
   public:
-    TrackSwitch(IoInput& inputHandler, IoOutput& outputHandler, const NodeLib::Id& inputId, const NodeLib::Id& outputId, const Value valueWhenSet, const Value valueWhenUnset, Transfer &parent, bool (Transfer::*func)());
+    TrackSwitch(IoOutput& outputHandler, const int inputPin, const NodeLib::Id& outputId, const Value valueWhenSet, const Value valueWhenUnset, Transfer &parent, bool (Transfer::*func)());
 
-    void Set(const Value& value);
+    void Init();
+    void Loop();
     bool IsSet() const;
 
   private:
+    void Set(const bool setTo);
     void WriteOutput();
 
+    const int inputPin;
+    unsigned long nextUpdate;
     IoOutput& outputHandler;
     const NodeLib::Id& outputId;
     const Value valueWhenSet;
