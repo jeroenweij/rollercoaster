@@ -12,8 +12,6 @@ Station::Station(IoInput& inputHandler, IoOutput& outputHandler)
     inputHandler.AddCallback(NodeId::stationSet.id, this, &Station::OnTrainSet, true);
     inputHandler.AddCallback(NodeId::liftEnter.id, this, &Station::OnTrainLeft, true);
     inputHandler.AddCallback(NodeId::liftLeft.id, this, &Station::OnNextBlockFreed, true);
-
-    Hold();
 }
 
 void Station::OnTrainEnter()
