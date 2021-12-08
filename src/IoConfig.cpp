@@ -28,8 +28,8 @@ void IoConfig::ConfigureIo()
     ConfigureChannel(NodeId::liftMotor);
     ConfigureChannel(NodeId::liftAproached);
     ConfigureChannel(NodeId::liftBlocked);
-    ConfigureChannel(NodeId::transfertEnter);
-    ConfigureChannel(NodeId::transfertSet);
+    ConfigureChannel(NodeId::brakeRunEnter);
+    ConfigureChannel(NodeId::brakeRunSet);
     ConfigureChannel(NodeId::transferBrake);
     ConfigureChannel(NodeId::transferInSwitch);
     ConfigureChannel(NodeId::transferOutSwitch);

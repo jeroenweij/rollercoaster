@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 
 set(TARGET_PLATFORM atmega2560)
+#add_compile_definitions(DEBUG)
+
 include(tools/cmake/arduino.cmake)
 project(rollercoaster C CXX)
 

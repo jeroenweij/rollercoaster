@@ -9,15 +9,15 @@ BrakeRunIds brakeRunIds = {
     .approachLed = NodeId::transferAproached.id,
     .blockedLed = NodeId::transferBlocked.id,
     .blockDevice = NodeId::transferBrake.id,
-    .onTrainEnter = NodeId::transfertEnter.id,
-    .onTrainSet = NodeId::transfertSet.id
+    .onTrainEnter = NodeId::brakeRunEnter.id,
+    .onTrainSet = NodeId::brakeRunSet.id
 };
 
 BrakeRunIds storageTrackIds = {
     .approachLed = NodeId::storageAproached.id,
     .blockedLed = NodeId::storageBlocked.id,
     .blockDevice = NodeId::storageBrake.id,
-    .onTrainEnter = NodeId::transfertEnter.id,
+    .onTrainEnter = NodeId::storageEnter.id,
     .onTrainSet = NodeId::storageSet.id
 };
 
