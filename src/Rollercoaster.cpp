@@ -28,5 +28,7 @@ void Rollercoaster::Init()
 
 void Rollercoaster::Loop()
 {
+    station.Init();
+    lift.Init();
     transfer.Loop();
 }

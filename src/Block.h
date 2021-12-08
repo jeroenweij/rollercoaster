@@ -16,9 +16,10 @@ using NodeLib::Id;
 class Block : public IBlock
 {
   public:
-    Block(IoOutput& outputHandler, const Id& approachId, const Id& blockId, const Id& deviceId);
+    Block(IoOutput& outputHandler, const int approachId, const int blockId, const Id& deviceId);
     ~Block() { }
 
+    void Init();
     void OnTrainEnter();
     void OnTrainLeft();
     void OnTrainSet();
@@ -38,8 +39,8 @@ class Block : public IBlock
     void Hold();
 
     IoOutput& outputHandler;
-    const Id& approachId;
-    const Id& blockId;
+    const int approachPin;
+    const int blockPin;
     const Id& deviceId;
 
   private:

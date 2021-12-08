@@ -7,16 +7,16 @@
 #include <pins.h>
 
 BrakeRunIds brakeRunIds = {
-    .approachLed = NodeId::brakerunAproached.id,
-    .blockedLed = NodeId::brakerunBlocked.id,
+    .approachLed = PIN_BRAKE_APPR,
+    .blockedLed = PIN_BRAKE_BLOCK,
     .blockDevice = NodeId::brakerunBrake.id,
     .onTrainEnter = NodeId::brakeRunEnter.id,
     .onTrainSet = NodeId::brakeRunSet.id
 };
 
 BrakeRunIds storageTrackIds = {
-    .approachLed = NodeId::storageAproached.id,
-    .blockedLed = NodeId::storageBlocked.id,
+    .approachLed = PIN_STORAGE_APPR,
+    .blockedLed = PIN_STORAGE_BLOCK,
     .blockDevice = NodeId::storageBrake.id,
     .onTrainEnter = NodeId::storageEnter.id,
     .onTrainSet = NodeId::storageSet.id
@@ -38,6 +38,8 @@ void Transfer::Init()
 {
     exitStorage.Init();
     enterStorage.Init();
+    storage.Init();
+    brakeRun.Init();
 }
 
 void Transfer::Loop()

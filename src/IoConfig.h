@@ -32,10 +32,6 @@ namespace NodeId
     // Out
     static const IoChannel stationBrake(1, NodeLib::ChannelId::MOSFET_1, Operation::SET, PinMode::DIGITAL_OUT);
 
-    // UI Out
-    static const IoChannel stationAproached(7, NodeLib::ChannelId::DIGITAL_1, Operation::SET, PinMode::DIGITAL_OUT);
-    static const IoChannel stationBlocked(7, NodeLib::ChannelId::DIGITAL_2, Operation::SET, PinMode::DIGITAL_OUT);
-
     // Lift
     // In
     static const IoChannel liftEnter(2, NodeLib::ChannelId::DIGITAL_1, Operation::VALUE, PinMode::DIGITAL_IN);
@@ -43,10 +39,6 @@ namespace NodeId
     static const IoChannel liftLeft(5, NodeLib::ChannelId::DIGITAL_1, Operation::VALUE, PinMode::DIGITAL_IN);
     // Out
     static const IoChannel liftMotor(3, NodeLib::ChannelId::MOSFET_1, Operation::SET, PinMode::DIGITAL_OUT);
-
-    // UI Out
-    static const IoChannel liftAproached(7, NodeLib::ChannelId::DIGITAL_3, Operation::SET, PinMode::DIGITAL_OUT);
-    static const IoChannel liftBlocked(7, NodeLib::ChannelId::DIGITAL_4, Operation::SET, PinMode::DIGITAL_OUT);
 
     // Transfer
     // In
@@ -57,10 +49,6 @@ namespace NodeId
     static const IoChannel transferInSwitch(5, NodeLib::ChannelId::SERVO_1, Operation::SET, PinMode::SERVO);
     static const IoChannel transferOutSwitch(6, NodeLib::ChannelId::SERVO_1, Operation::SET, PinMode::SERVO);
 
-    // UI Out
-    static const IoChannel brakerunAproached(7, NodeLib::ChannelId::DIGITAL_5, Operation::SET, PinMode::DIGITAL_OUT);
-    static const IoChannel brakerunBlocked(7, NodeLib::ChannelId::DIGITAL_6, Operation::SET, PinMode::DIGITAL_OUT);
-
     // Storage
     // In
     static const IoChannel storageEnter(5, NodeLib::ChannelId::DIGITAL_3, Operation::VALUE, PinMode::DIGITAL_IN);
@@ -68,10 +56,6 @@ namespace NodeId
 
     // Out
     static const IoChannel storageBrake(6, NodeLib::ChannelId::MOSFET_2, Operation::SET, PinMode::DIGITAL_OUT);
-
-    // UI Out
-    static const IoChannel storageAproached(7, NodeLib::ChannelId::ANALOG_1, Operation::SET, PinMode::DIGITAL_OUT);
-    static const IoChannel storageBlocked(7, NodeLib::ChannelId::ANALOG_2, Operation::SET, PinMode::DIGITAL_OUT);
 }
 
 class IoConfig

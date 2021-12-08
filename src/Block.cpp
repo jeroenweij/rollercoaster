@@ -3,15 +3,19 @@
 *************************************************************/
 
 #include "Block.h"
+#include "Arduino.h"
 
-Block::Block(IoOutput& outputHandler, const Id& approachId, const Id& blockId, const NodeLib::Id& deviceId)
-    : outputHandler(outputHandler)
-    , approachId(approachId)
-    , blockId(blockId)
-    , deviceId(deviceId)
-    , status(EStatus::FREE)
+Block::Block(IoOutput& outputHandler, const int approachId, const int blockId, const NodeLib::Id& deviceId) :
+    outputHandler(outputHandler), approachPin(approachId), blockPin(blockId), deviceId(deviceId), status(EStatus::FREE)
 {
+}
 
+void Block::Init()
+{
+    pinMode(approachPin, OUTPUT);
+    pinMode(blockPin, OUTPUT);
+    digitalWrite(approachPin, LOW);
+    digitalWrite(blockPin, LOW);
 }
 
 void Block::OnTrainEnter()
@@ -21,12 +25,12 @@ void Block::OnTrainEnter()
 
 void Block::OnTrainSet()
 {
-    SetStatus (EStatus::BLOCKED);
+    SetStatus(EStatus::BLOCKED);
 }
 
 void Block::OnTrainLeft()
 {
-    SetStatus (EStatus::FREE);
+    SetStatus(EStatus::FREE);
 }
 
 void Block::SetNextBlock(IBlock* block)
@@ -50,8 +54,8 @@ void Block::SetStatus(EStatus newStatus)
     {
         LOG_INFO("Set Status to " << newStatus);
         this->status = newStatus;
-        outputHandler.writeTwostate(this->approachId, status == EStatus::EXPECTING || status == EStatus::LEAVING);
-        outputHandler.writeTwostate(this->blockId, status == EStatus::BLOCKED || status == EStatus::LEAVING);
+        digitalWrite(approachPin, status == EStatus::EXPECTING || status == EStatus::LEAVING);
+        digitalWrite(blockPin, status == EStatus::BLOCKED || status == EStatus::LEAVING);
     }
 }
 

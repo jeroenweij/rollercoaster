@@ -13,8 +13,8 @@
 
 struct BrakeRunIds
 {
-    const NodeLib::Id& approachLed;
-    const NodeLib::Id& blockedLed;
+    const int approachLed;
+    const int blockedLed;
     const NodeLib::Id& blockDevice;
     const NodeLib::Id& onTrainEnter;
     const NodeLib::Id& onTrainSet;

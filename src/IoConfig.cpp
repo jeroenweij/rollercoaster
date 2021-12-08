@@ -20,25 +20,17 @@ void IoConfig::ConfigureIo()
     ConfigureChannel(NodeId::stationEnter);
     ConfigureChannel(NodeId::stationSet);
     ConfigureChannel(NodeId::stationBrake);
-    ConfigureChannel(NodeId::stationAproached);
-    ConfigureChannel(NodeId::stationBlocked);
     ConfigureChannel(NodeId::liftEnter);
     ConfigureChannel(NodeId::liftSet);
     ConfigureChannel(NodeId::liftLeft);
     ConfigureChannel(NodeId::liftMotor);
-    ConfigureChannel(NodeId::liftAproached);
-    ConfigureChannel(NodeId::liftBlocked);
     ConfigureChannel(NodeId::brakeRunEnter);
     ConfigureChannel(NodeId::brakeRunSet);
     ConfigureChannel(NodeId::brakerunBrake);
     ConfigureChannel(NodeId::transferInSwitch);
     ConfigureChannel(NodeId::transferOutSwitch);
-    ConfigureChannel(NodeId::brakerunAproached);
-    ConfigureChannel(NodeId::brakerunBlocked);
     ConfigureChannel(NodeId::storageSet);
     ConfigureChannel(NodeId::storageBrake);
-    ConfigureChannel(NodeId::storageAproached);
-    ConfigureChannel(NodeId::storageBlocked);
 }
 
 void IoConfig::ConfigureChannel(const NodeId::IoChannel& channel)

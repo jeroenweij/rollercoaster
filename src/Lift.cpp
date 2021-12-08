@@ -4,9 +4,10 @@
 
 #include "Lift.h"
 #include "IoConfig.h"
+#include "pins.h"
 
 Lift::Lift(IoInput& inputHandler, IoOutput& outputHandler)
-    : Block(outputHandler, NodeId::liftAproached.id, NodeId::liftBlocked.id, NodeId::liftMotor.id)
+    : Block(outputHandler, PIN_LIFT_APPR, PIN_LIFT_BLOCK, NodeId::liftMotor.id)
 {
     inputHandler.AddCallback(NodeId::liftEnter.id, this, &Lift::OnTrainEnter, true);
     inputHandler.AddCallback(NodeId::liftSet.id, this, &Lift::OnTrainSet, true);

@@ -4,9 +4,10 @@
 
 #include "Station.h"
 #include "IoConfig.h"
+#include "pins.h"
 
 Station::Station(IoInput& inputHandler, IoOutput& outputHandler)
-    : Block(outputHandler, NodeId::stationAproached.id, NodeId::stationBlocked.id, NodeId::stationBrake.id)
+    : Block(outputHandler, PIN_STATION_APPR, PIN_STATION_BLOCK, NodeId::stationBrake.id)
 {
     inputHandler.AddCallback(NodeId::stationEnter.id, this, &Station::OnTrainEnter, true);
     inputHandler.AddCallback(NodeId::stationSet.id, this, &Station::OnTrainSet, true);
