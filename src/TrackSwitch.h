@@ -15,7 +15,7 @@ class Transfer;
 class TrackSwitch
 {
   public:
-    TrackSwitch(IoOutput& outputHandler, const int inputPin, const NodeLib::Id& outputId, const Value valueWhenSet, const Value valueWhenUnset, Transfer& parent, bool (Transfer::*func)());
+    TrackSwitch(IoOutput& outputHandler, const int inputPin, const int uiPin, const NodeLib::Id& outputId, const Value valueWhenSet, const Value valueWhenUnset, Transfer& parent, bool (Transfer::*func)());
 
     void Init();
     void Loop();
@@ -26,6 +26,7 @@ class TrackSwitch
     void WriteOutput();
 
     const int inputPin;
+    const int uiPin;
     unsigned long nextUpdate;
     IoOutput& outputHandler;
     const NodeLib::Id& outputId;

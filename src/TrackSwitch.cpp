@@ -6,8 +6,9 @@
 #include "Arduino.h"
 #include "Transfer.h"
 
-TrackSwitch::TrackSwitch(IoOutput& outputHandler, const int inputPin, const NodeLib::Id& outputId, const Value valueWhenSet, const Value valueWhenUnset, Transfer& parent, bool (Transfer::*func)()) :
+TrackSwitch::TrackSwitch(IoOutput& outputHandler, const int inputPin, const int uiPin, const NodeLib::Id& outputId, const Value valueWhenSet, const Value valueWhenUnset, Transfer& parent, bool (Transfer::*func)()) :
     inputPin(inputPin),
+    uiPin(uiPin),
     nextUpdate(0),
     outputHandler(outputHandler),
     outputId(outputId),
@@ -22,6 +23,8 @@ TrackSwitch::TrackSwitch(IoOutput& outputHandler, const int inputPin, const Node
 void TrackSwitch::Init()
 {
     pinMode(inputPin, INPUT_PULLUP);
+    pinMode(uiPin, OUTPUT);
+    digitalWrite(uiPin, LOW);
 }
 
 void TrackSwitch::Loop()
@@ -44,6 +47,7 @@ void TrackSwitch::Set(const bool setTo)
     {
         set = setTo;
         WriteOutput();
+        digitalWrite(uiPin, set);
         parent.SwitchChanged();
     }
 }

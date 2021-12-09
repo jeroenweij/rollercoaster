@@ -7,8 +7,8 @@
 #include <pins.h>
 
 BrakeRunIds brakeRunIds = {
-    .approachLed = PIN_BRAKE_APPR,
-    .blockedLed = PIN_BRAKE_BLOCK,
+    .approachLed = PIN_UI_BRAKE_APPR,
+    .blockedLed = PIN_UI_BRAKE_BLOCK,
     .overridePin = PIN_MANUAL_BRAKE,
     .blockDevice = NodeId::brakerunBrake.id,
     .onTrainEnter = NodeId::brakeRunEnter.id,
@@ -16,8 +16,8 @@ BrakeRunIds brakeRunIds = {
 };
 
 BrakeRunIds storageTrackIds = {
-    .approachLed = PIN_STORAGE_APPR,
-    .blockedLed = PIN_STORAGE_BLOCK,
+    .approachLed = PIN_UI_STORAGE_APPR,
+    .blockedLed = PIN_UI_STORAGE_BLOCK,
     .overridePin = PIN_MANUAL_STORAGE,
     .blockDevice = NodeId::storageBrake.id,
     .onTrainEnter = NodeId::storageEnter.id,
@@ -25,8 +25,8 @@ BrakeRunIds storageTrackIds = {
 };
 
 Transfer::Transfer(IoInput& inputHandler, IoOutput& outputHandler, Lift& lift) :
-    enterStorage(outputHandler, PIN_SWITCH_1, NodeId::transferInSwitch.id, 180, 0, *this, &Transfer::EnterSwitchSafeToMove),
-    exitStorage(outputHandler, PIN_SWITCH_2, NodeId::transferOutSwitch.id, 180, 0, *this, &Transfer::ExitSwitchSafeToMove),
+    enterStorage(outputHandler, PIN_ENTER_SWITCH, PIN_UI_ENTER_SWITCH, NodeId::transferInSwitch.id, 180, 0, *this, &Transfer::EnterSwitchSafeToMove),
+    exitStorage(outputHandler, PIN_EXIT_SWITCH, PIN_UI_EXIT_SWITCH, NodeId::transferOutSwitch.id, 180, 0, *this, &Transfer::ExitSwitchSafeToMove),
     brakeRun(outputHandler, inputHandler, brakeRunIds, exitStorage, false),
     storage(outputHandler, inputHandler, brakeRunIds, exitStorage, true),
     lift(lift)

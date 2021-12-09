@@ -7,7 +7,7 @@
 #include "pins.h"
 
 Lift::Lift(IoInput& inputHandler, IoOutput& outputHandler)
-    : Block(outputHandler, PIN_LIFT_APPR, PIN_LIFT_BLOCK, NodeId::liftMotor.id, PIN_MANUAL_LIFT)
+    : Block(outputHandler, PIN_UI_LIFT_APPR, PIN_UI_LIFT_BLOCK, NodeId::liftMotor.id, PIN_MANUAL_LIFT)
 {
     inputHandler.AddCallback(NodeId::liftEnter.id, this, &Lift::OnTrainEnter, true);
     inputHandler.AddCallback(NodeId::liftSet.id, this, &Lift::OnTrainSet, true);

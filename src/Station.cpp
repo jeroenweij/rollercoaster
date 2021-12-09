@@ -7,7 +7,7 @@
 #include "pins.h"
 
 Station::Station(IoInput& inputHandler, IoOutput& outputHandler) :
-    Block(outputHandler, PIN_STATION_APPR, PIN_STATION_BLOCK, NodeId::stationBrake.id, PIN_MANUAL_STATION),
+    Block(outputHandler, PIN_UI_STATION_APPR, PIN_UI_STATION_BLOCK, NodeId::stationBrake.id, PIN_MANUAL_STATION),
     dispatchOk(false),
     dispatchButton(PIN_DISPATCH, PIN_DISPATCH_LED)
 {

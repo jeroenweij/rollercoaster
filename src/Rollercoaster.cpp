@@ -32,4 +32,5 @@ void Rollercoaster::Loop()
 {
     transfer.Loop();
     station.Loop();
+    lift.Loop();
 }
