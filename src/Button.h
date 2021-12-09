@@ -4,16 +4,16 @@
 
 #pragma once
 
-#include <NodeLib/id.h>
-
-#include "EStatus.h"
-#include "IoOutput.h"
-#include <tools/Logger.h>
-
-using NodeLib::Id;
-
-class IBlock
+class Button
 {
   public:
-    virtual bool IsFree() = 0;
+    Button(const int inputPin);
+
+    void Init();
+    const bool IsPressed();
+
+  private:
+    const int inputPin;
+    bool state;
+    unsigned long nextUpdate;
 };

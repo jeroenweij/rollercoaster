@@ -24,11 +24,12 @@ Rollercoaster::Rollercoaster(NodeMaster& nodeMaster)
 void Rollercoaster::Init()
 {
     transfer.Init();
+    station.Init();
+    lift.Init();
 }
 
 void Rollercoaster::Loop()
 {
-    station.Init();
-    lift.Init();
     transfer.Loop();
+    station.Loop();
 }

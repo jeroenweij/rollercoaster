@@ -5,8 +5,10 @@
 #pragma once
 
 #include "Block.h"
+#include "Button.h"
 #include "IoInput.h"
 #include "IoOutput.h"
+#include "LedButton.h"
 #include <tools/Logger.h>
 
 class Station : public Block
@@ -20,5 +22,10 @@ class Station : public Block
     void OnTrainSet();
     void OnNextBlockFreed();
 
+    void Init();
+    void Loop();
+
   private:
+    bool dispatchOk;
+    LedButton dispatchButton;
 };

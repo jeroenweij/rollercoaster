@@ -15,6 +15,7 @@ struct BrakeRunIds
 {
     const int approachLed;
     const int blockedLed;
+    const int overridePin;
     const NodeLib::Id& blockDevice;
     const NodeLib::Id& onTrainEnter;
     const NodeLib::Id& onTrainSet;

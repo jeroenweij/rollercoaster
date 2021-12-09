@@ -6,12 +6,12 @@
 
 #include <tools/Logger.h>
 
+#include "BrakeRun.h"
 #include "IBlock.h"
 #include "IoInput.h"
 #include "IoOutput.h"
-#include "BrakeRun.h"
-#include "TrackSwitch.h"
 #include "Lift.h"
+#include "TrackSwitch.h"
 
 class Transfer : public IBlock
 {
@@ -34,10 +34,9 @@ class Transfer : public IBlock
     bool ExitSwitchSafeToMove();
 
   private:
-
     TrackSwitch enterStorage;
     TrackSwitch exitStorage;
     BrakeRun brakeRun;
     BrakeRun storage;
-    Lift &lift;
+    Lift& lift;
 };

@@ -9,6 +9,7 @@
 BrakeRunIds brakeRunIds = {
     .approachLed = PIN_BRAKE_APPR,
     .blockedLed = PIN_BRAKE_BLOCK,
+    .overridePin = PIN_MANUAL_BRAKE,
     .blockDevice = NodeId::brakerunBrake.id,
     .onTrainEnter = NodeId::brakeRunEnter.id,
     .onTrainSet = NodeId::brakeRunSet.id
@@ -17,6 +18,7 @@ BrakeRunIds brakeRunIds = {
 BrakeRunIds storageTrackIds = {
     .approachLed = PIN_STORAGE_APPR,
     .blockedLed = PIN_STORAGE_BLOCK,
+    .overridePin = PIN_MANUAL_STORAGE,
     .blockDevice = NodeId::storageBrake.id,
     .onTrainEnter = NodeId::storageEnter.id,
     .onTrainSet = NodeId::storageSet.id
@@ -46,6 +48,8 @@ void Transfer::Loop()
 {
     exitStorage.Loop();
     enterStorage.Loop();
+    storage.Loop();
+    brakeRun.Loop();
 }
 
 void Transfer::OnTrainApproaching()

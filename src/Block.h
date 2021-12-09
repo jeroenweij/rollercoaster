@@ -6,8 +6,9 @@
 
 #include <NodeLib/id.h>
 
-#include "IBlock.h"
+#include "Button.h"
 #include "EStatus.h"
+#include "IBlock.h"
 #include "IoOutput.h"
 #include <tools/Logger.h>
 
@@ -16,10 +17,12 @@ using NodeLib::Id;
 class Block : public IBlock
 {
   public:
-    Block(IoOutput& outputHandler, const int approachId, const int blockId, const Id& deviceId);
+    Block(IoOutput& outputHandler, const int approachId, const int blockId, const Id& deviceId, const int overridePin);
     ~Block() { }
 
     void Init();
+    void Loop();
+
     void OnTrainEnter();
     void OnTrainLeft();
     void OnTrainSet();
@@ -47,4 +50,6 @@ class Block : public IBlock
     EStatus status;
 
     IBlock* nextBlock;
+    Button overrideButton;
+    bool override;
 };

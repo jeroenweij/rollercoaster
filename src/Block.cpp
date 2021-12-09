@@ -5,8 +5,11 @@
 #include "Block.h"
 #include "Arduino.h"
 
-Block::Block(IoOutput& outputHandler, const int approachId, const int blockId, const NodeLib::Id& deviceId) :
-    outputHandler(outputHandler), approachPin(approachId), blockPin(blockId), deviceId(deviceId), status(EStatus::FREE)
+Block::Block(IoOutput& outputHandler, const int approachId, const int blockId, const NodeLib::Id& deviceId, const int overridePin) :
+    outputHandler(outputHandler), approachPin(approachId), blockPin(blockId), deviceId(deviceId), status(EStatus::FREE),
+    nextBlock(nullptr),
+    overrideButton(overridePin),
+    override(false)
 {
 }
 
@@ -16,6 +19,28 @@ void Block::Init()
     pinMode(blockPin, OUTPUT);
     digitalWrite(approachPin, LOW);
     digitalWrite(blockPin, LOW);
+
+    overrideButton.Init();
+}
+
+void Block::Loop()
+{
+    if (overrideButton.IsPressed())
+    {
+        if (!override)
+        {
+            outputHandler.writeTwostate(this->deviceId, true);
+            override = true;
+        }
+    }
+    else
+    {
+        if (override)
+        {
+            outputHandler.writeTwostate(this->deviceId, false);
+            override = false;
+        }
+    }
 }
 
 void Block::OnTrainEnter()

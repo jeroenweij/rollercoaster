@@ -35,6 +35,10 @@ add_executable(${CMAKE_PROJECT_NAME}
     src/IoConfig.cpp
     src/TrackSwitch.h
     src/TrackSwitch.cpp
+    src/Button.h
+    src/Button.cpp
+    src/LedButton.h
+    src/LedButton.cpp
 )
 
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE

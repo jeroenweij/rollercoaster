@@ -6,7 +6,7 @@
 #include "IoConfig.h"
 
 BrakeRun::BrakeRun(IoOutput& outputHandler, IoInput inputHandler, BrakeRunIds& nodeIds, const TrackSwitch& exitSwitch, const bool isStorage) :
-    Block(outputHandler, nodeIds.approachLed, nodeIds.blockedLed, nodeIds.blockDevice),
+    Block(outputHandler, nodeIds.approachLed, nodeIds.blockedLed, nodeIds.blockDevice, nodeIds.overridePin),
     exitSwitch(exitSwitch),
     isStorage(isStorage)
 {

@@ -6,8 +6,10 @@
 #include "IoConfig.h"
 #include "pins.h"
 
-Station::Station(IoInput& inputHandler, IoOutput& outputHandler)
-    : Block(outputHandler, PIN_STATION_APPR, PIN_STATION_BLOCK, NodeId::stationBrake.id)
+Station::Station(IoInput& inputHandler, IoOutput& outputHandler) :
+    Block(outputHandler, PIN_STATION_APPR, PIN_STATION_BLOCK, NodeId::stationBrake.id, PIN_MANUAL_STATION),
+    dispatchOk(false),
+    dispatchButton(PIN_DISPATCH, PIN_DISPATCH_LED)
 {
     inputHandler.AddCallback(NodeId::stationEnter.id, this, &Station::OnTrainEnter, true);
     inputHandler.AddCallback(NodeId::stationSet.id, this, &Station::OnTrainSet, true);
@@ -28,12 +30,10 @@ void Station::OnTrainSet()
     Block::OnTrainSet();
     if (IsNextFree())
     {
-        Release();
+        dispatchOk = true;
+        dispatchButton.SetLed(true);
     }
-    else
-    {
-        Hold();
-    }
+    Hold();
 }
 
 void Station::OnTrainLeft()
@@ -46,7 +46,26 @@ void Station::OnTrainLeft()
 void Station::OnNextBlockFreed()
 {
     LOG_INFO("OnNextBlockFreed");
-    if (IsBlocked()){
+    if (IsBlocked())
+    {
+        dispatchOk = true;
+        dispatchButton.SetLed(true);
+    }
+}
+
+void Station::Init()
+{
+    Block::Init();
+    dispatchButton.Init();
+}
+
+void Station::Loop()
+{
+    Block::Loop();
+    if (dispatchButton.IsPressed() && dispatchOk)
+    {
         Release();
+        dispatchButton.SetLed(false);
+        dispatchOk = false;
     }
 }
