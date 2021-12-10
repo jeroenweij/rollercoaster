@@ -8,7 +8,10 @@
 LedButton::LedButton(const int inputPin, const int ledPin) :
     Button(inputPin),
     ledPin(ledPin)
-{ }
+{
+    pinMode(ledPin, OUTPUT);
+    SetLed(true);
+}
 
 void LedButton::Init()
 {

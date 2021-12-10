@@ -10,6 +10,7 @@ Button::Button(const int inputPin) :
     state(false),
     nextUpdate(0)
 {
+    pinMode(inputPin, INPUT_PULLUP);
 }
 
 void Button::Init()

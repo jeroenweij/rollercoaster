@@ -9,7 +9,7 @@
 #include "IoConfig.h"
 #include "Rollercoaster.h"
 
-NodeLib::NodeMaster node(PIN_ENABLE_385);
+NodeLib::NodeMaster node(PIN_ENABLE_385, PIN_LED);
 Rollercoaster rollercoaster(node);
 
 void setup(void)
@@ -17,7 +17,7 @@ void setup(void)
     pinMode(PIN_ENABLE_385, OUTPUT);
     pinMode(PIN_LED, OUTPUT);
     digitalWrite(PIN_ENABLE_385, LOW);
-    digitalWrite(PIN_LED, LOW);
+    digitalWrite(PIN_LED, HIGH);
 
     Serial.begin(115200);
     LOG_INFO(F("Wait for nodes"));
@@ -25,9 +25,8 @@ void setup(void)
     LOG_INFO(F("Setting up"));
     LOG_DEBUG(F("Debug log enabled"));
 
-    digitalWrite(PIN_LED, HIGH);
-    rollercoaster.Init();
     node.Init();
+    rollercoaster.Init();
     digitalWrite(PIN_LED, LOW);
 
     IoConfig config(node);

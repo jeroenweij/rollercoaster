@@ -18,6 +18,9 @@ TrackSwitch::TrackSwitch(IoOutput& outputHandler, const int inputPin, const int 
     parent(parent),
     SafeToMove(func)
 {
+    pinMode(inputPin, INPUT_PULLUP);
+    pinMode(uiPin, OUTPUT);
+    digitalWrite(uiPin, HIGH);
 }
 
 void TrackSwitch::Init()

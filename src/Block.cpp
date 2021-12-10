@@ -11,6 +11,10 @@ Block::Block(IoOutput& outputHandler, const int approachId, const int blockId, c
     overrideButton(overridePin),
     override(false)
 {
+    pinMode(approachPin, OUTPUT);
+    pinMode(blockPin, OUTPUT);
+    digitalWrite(approachPin, HIGH);
+    digitalWrite(blockPin, HIGH);
 }
 
 void Block::Init()
