@@ -17,14 +17,14 @@ Lift::Lift(IoInput& inputHandler, IoOutput& outputHandler)
 
 void Lift::OnTrainEnter()
 {
-    LOG_INFO("OnTrainEnter");
+    LOG_INFO(F("Lift Train Enter"));
     Block::OnTrainEnter();
     Release();
 }
 
 void Lift::OnTrainSet()
 {
-    LOG_INFO("OnTrainSet");
+    LOG_INFO(F("Lift Train Set"));
     Block::OnTrainSet();
     if (IsNextFree())
     {
@@ -38,14 +38,14 @@ void Lift::OnTrainSet()
 
 void Lift::OnTrainLeft()
 {
-    LOG_INFO("OnTrainLeft");
+    LOG_INFO(F("Lift Train Left"));
     Block::OnTrainLeft();
     Hold();
 }
 
 void Lift::OnNextBlockFreed()
 {
-    LOG_INFO("OnNextBlockFreed");
+    LOG_INFO(F("Lift NextBlockFreed"));
     if (IsBlocked()){
         Release();
     }

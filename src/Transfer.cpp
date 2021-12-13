@@ -54,7 +54,7 @@ void Transfer::Loop()
 
 void Transfer::OnTrainApproaching()
 {
-    LOG_INFO("OnTrainApproaching");
+    LOG_INFO(F("Transfer Train Approaching"));
     if (enterStorage.IsSet())
     {
         storage.OnTrainApproaching();
@@ -67,7 +67,7 @@ void Transfer::OnTrainApproaching()
 
 void Transfer::OnTrainLeft()
 {
-    LOG_INFO("OnTrainLeft");
+    LOG_INFO(F("Transfer Train Left"));
     if (this->exitStorage.IsSet())
     {
         storage.OnTrainLeft();
@@ -80,7 +80,7 @@ void Transfer::OnTrainLeft()
 
 void Transfer::OnNextBlockFreed()
 {
-    LOG_INFO("OnNextBlockFreed");
+    LOG_INFO(F("Transfer NextBlockFreed"));
     if (this->exitStorage.IsSet())
     {
         storage.OnNextBlockFreed();

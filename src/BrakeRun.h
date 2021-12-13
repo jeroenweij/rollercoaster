@@ -27,6 +27,8 @@ class BrakeRun : public Block
     BrakeRun(IoOutput& outputHandler, IoInput inputHandler, BrakeRunIds& nodeIds, const TrackSwitch& exitSwitch, const bool isStorage);
     ~BrakeRun() { }
 
+    void Loop();
+
     void OnTrainApproaching();
     void OnTrainEnter();
     void OnTrainLeft();
@@ -36,4 +38,5 @@ class BrakeRun : public Block
   private:
     const TrackSwitch& exitSwitch;
     const bool isStorage;
+    unsigned long nextAction;
 };

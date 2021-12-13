@@ -45,9 +45,9 @@ void TrackSwitch::Loop()
 
 void TrackSwitch::Set(const bool setTo)
 {
-    LOG_INFO("Setting Switch " << (setTo ? "ON" : "OFF"));
     if ((parent.*SafeToMove)())
     {
+        LOG_INFO("Setting Switch " << (setTo ? "ON" : "OFF"));
         set = setTo;
         WriteOutput();
         digitalWrite(uiPin, set);

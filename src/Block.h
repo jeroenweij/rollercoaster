@@ -45,10 +45,9 @@ class Block : public IBlock
     const int approachPin;
     const int blockPin;
     const Id& deviceId;
-
-  private:
     EStatus status;
 
+  private:
     IBlock* nextBlock;
     Button overrideButton;
     bool override;

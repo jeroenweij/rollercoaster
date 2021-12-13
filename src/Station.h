@@ -28,4 +28,5 @@ class Station : public Block
   private:
     bool dispatchOk;
     LedButton dispatchButton;
+    unsigned long nextAction;
 };
