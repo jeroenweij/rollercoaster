@@ -34,6 +34,7 @@ class BrakeRun : public Block
     void OnTrainLeft();
     void OnTrainSet();
     void OnNextBlockFreed();
+    bool IsNextFree() override;
 
   private:
     const TrackSwitch& exitSwitch;

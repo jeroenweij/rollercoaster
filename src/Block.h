@@ -23,6 +23,7 @@ class Block : public IBlock
     void Init();
     void Loop();
 
+    void OnTrainAproaching();
     void OnTrainEnter();
     void OnTrainLeft();
     void OnTrainSet();
@@ -30,11 +31,12 @@ class Block : public IBlock
     virtual void OnNextBlockFreed() = 0;
 
     void SetNextBlock(IBlock* block);
-    bool IsNextFree();
-    virtual bool IsFree();
+    virtual bool IsNextFree();
+    bool IsFree() override;
     bool IsBlocked();
     bool IsLeaving();
     virtual bool IsApproaching();
+    void ResetStop() override;
 
   protected:
     void SetStatus(EStatus newStatus);
@@ -51,4 +53,5 @@ class Block : public IBlock
     IBlock* nextBlock;
     Button overrideButton;
     bool override;
+    bool eStop;
 };

@@ -4,12 +4,18 @@
 
 #include "Block.h"
 #include "Arduino.h"
+#include "Mode.h"
 
 Block::Block(IoOutput& outputHandler, const int approachId, const int blockId, const NodeLib::Id& deviceId, const int overridePin) :
-    outputHandler(outputHandler), approachPin(approachId), blockPin(blockId), deviceId(deviceId), status(EStatus::FREE),
+    outputHandler(outputHandler),
+    approachPin(approachId),
+    blockPin(blockId),
+    deviceId(deviceId),
+    status(EStatus::FREE),
     nextBlock(nullptr),
     overrideButton(overridePin),
-    override(false)
+    override(false),
+    eStop(false)
 {
     pinMode(approachPin, OUTPUT);
     pinMode(blockPin, OUTPUT);
@@ -29,11 +35,17 @@ void Block::Init()
 
 void Block::Loop()
 {
-    if (overrideButton.IsPressed())
+    if (Mode::IsStop() && !eStop)
+    {
+        Hold();
+        eStop = true;
+    }
+
+    if (Mode::IsManual() && overrideButton.IsPressed())
     {
         if (!override)
         {
-            outputHandler.writeTwostate(this->deviceId, true);
+            Release();
             override = true;
         }
     }
@@ -41,15 +53,20 @@ void Block::Loop()
     {
         if (override)
         {
-            outputHandler.writeTwostate(this->deviceId, false);
+            Hold();
             override = false;
         }
     }
 }
 
-void Block::OnTrainEnter()
+void Block::OnTrainAproaching()
 {
     SetStatus(EStatus::EXPECTING);
+}
+
+void Block::OnTrainEnter()
+{
+    SetStatus(EStatus::ENTERED);
 }
 
 void Block::OnTrainSet()
@@ -83,17 +100,20 @@ void Block::SetStatus(EStatus newStatus)
     {
         LOG_INFO("Set Status to " << newStatus);
         this->status = newStatus;
-        digitalWrite(approachPin, status == EStatus::EXPECTING || status == EStatus::LEAVING);
+        digitalWrite(approachPin, status == EStatus::ENTERED || status == EStatus::EXPECTING || status == EStatus::LEAVING);
         digitalWrite(blockPin, status == EStatus::BLOCKED || status == EStatus::LEAVING);
     }
 }
 
 void Block::Release()
 {
-    outputHandler.writeTwostate(this->deviceId, true);
-    if (status == EStatus::BLOCKED)
+    if (Mode::IsAuto() && !eStop)
     {
-        SetStatus(EStatus::LEAVING);
+        outputHandler.writeTwostate(this->deviceId, true);
+        if (status == EStatus::BLOCKED)
+        {
+            SetStatus(EStatus::LEAVING);
+        }
     }
 }
 
@@ -116,5 +136,14 @@ bool Block::IsLeaving()
 }
 bool Block::IsApproaching()
 {
-    return this->status == EStatus::EXPECTING;
+    return this->status == EStatus::EXPECTING || status == EStatus::ENTERED;
+}
+
+void Block::ResetStop()
+{
+    eStop = false;
+    if ((status == EStatus::ENTERED) || (status == EStatus::LEAVING) || (status == EStatus::BLOCKED && IsNextFree()))
+    {
+        Release();
+    }
 }

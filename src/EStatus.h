@@ -10,6 +10,7 @@
 enum class EStatus
 {
     EXPECTING,
+    ENTERED,
     BLOCKED,
     LEAVING,
     FREE,
@@ -21,6 +22,9 @@ inline std::stringstream& operator<<(std::stringstream& oStrStream, const EStatu
     {
         case EStatus::EXPECTING:
             oStrStream << "EXPECTING";
+            break;
+        case EStatus::ENTERED:
+            oStrStream << "ENTERED";
             break;
         case EStatus::BLOCKED:
             oStrStream << "BLOCKED";

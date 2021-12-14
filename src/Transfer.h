@@ -29,6 +29,7 @@ class Transfer : public IBlock
 
     bool IsApproaching();
     bool IsFree() override;
+    void ResetStop() override;
 
     bool EnterSwitchSafeToMove();
     bool ExitSwitchSafeToMove();

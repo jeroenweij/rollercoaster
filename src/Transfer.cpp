@@ -142,6 +142,18 @@ bool Transfer::IsFree()
     }
 }
 
+void Transfer::ResetStop()
+{
+    if (this->exitStorage.IsSet())
+    {
+        storage.ResetStop();
+    }
+    else
+    {
+        brakeRun.ResetStop();
+    }
+}
+
 bool Transfer::IsApproaching()
 {
     if (this->enterStorage.IsSet())

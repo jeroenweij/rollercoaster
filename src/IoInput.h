@@ -9,7 +9,7 @@
 #include <tools/FunctionPtr.h>
 #include <tools/Logger.h>
 
-const int maxCallbacks = 30;
+const int maxCallbacks = 25;
 
 using Value = uint8_t;
 

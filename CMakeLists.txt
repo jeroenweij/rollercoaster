@@ -14,6 +14,7 @@ add_subdirectory(pins)
 add_executable(${CMAKE_PROJECT_NAME}
     src/RollerSketch.cpp
     src/EStatus.h
+    src/EMode.h
     src/IBlock.h
     src/Block.h
     src/Block.cpp
@@ -39,6 +40,8 @@ add_executable(${CMAKE_PROJECT_NAME}
     src/Button.cpp
     src/LedButton.h
     src/LedButton.cpp
+    src/Mode.h
+    src/Mode.cpp
 )
 
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE

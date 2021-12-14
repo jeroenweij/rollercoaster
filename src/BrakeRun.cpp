@@ -32,12 +32,13 @@ void BrakeRun::Loop()
 void BrakeRun::OnTrainApproaching()
 {
     LOG_INFO(F("Brakerun Train Approaching"));
-    Block::OnTrainEnter();
+    Block::OnTrainAproaching();
 }
 
 void BrakeRun::OnTrainEnter()
 {
     LOG_INFO(F("Brakerun Train Enter"));
+    Block::OnTrainEnter();
     nextAction = millis() + 2000;
 }
 
@@ -45,7 +46,7 @@ void BrakeRun::OnTrainSet()
 {
     LOG_INFO(F("Brakerun Train Set"));
     Block::OnTrainSet();
-    if ((exitSwitch.IsSet() == isStorage) && IsNextFree())
+    if (IsNextFree())
     {
         Release();
     }
@@ -69,4 +70,9 @@ void BrakeRun::OnNextBlockFreed()
     {
         Release();
     }
+}
+
+bool BrakeRun::IsNextFree()
+{
+    return ((exitSwitch.IsSet() == isStorage) && Block::IsNextFree());
 }
