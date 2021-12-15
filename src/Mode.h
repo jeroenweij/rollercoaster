@@ -23,7 +23,7 @@ class Mode
     void AddResetCallback(IBlock* block);
 
   private:
-    void ResetEStop();
+    void ResetRestart();
 
     static EMode mode;
 

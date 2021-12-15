@@ -40,7 +40,6 @@ void Mode::Loop()
             }
             else
             {
-                ResetEStop();
                 newMode = EMode::OFF;
             }
         }
@@ -65,10 +64,15 @@ void Mode::Loop()
     {
         LOG_INFO(F("Mode change ") << mode << " -> " << newMode);
         mode = newMode;
+
+        if (mode == EMode::AUTO)
+        {
+            ResetRestart();
+        }
     }
 }
 
-void Mode::ResetEStop()
+void Mode::ResetRestart()
 {
     digitalWrite(PIN_E_STOP_RESET_LED, LOW);
     for (int i = 0; i < numBlocks; i++)
@@ -86,7 +90,7 @@ void Mode::AddResetCallback(IBlock* block)
     }
     else
     {
-        LOG_ERROR(F("Error adding estop callback"));
+        LOG_ERROR(F("Error adding reset callback"));
     }
 }
 

@@ -14,7 +14,7 @@ Block::Block(IoOutput& outputHandler, const int approachId, const int blockId, c
     status(EStatus::FREE),
     nextBlock(nullptr),
     overrideButton(overridePin),
-    override(false),
+    manualOverride(false),
     eStop(false)
 {
     pinMode(approachPin, OUTPUT);
@@ -39,22 +39,23 @@ void Block::Loop()
     {
         Hold();
         eStop = true;
+        manualOverride = false;
     }
 
     if (Mode::IsManual() && overrideButton.IsPressed())
     {
-        if (!override)
+        if (!manualOverride)
         {
+            manualOverride = true;
             Release();
-            override = true;
         }
     }
     else
     {
-        if (override)
+        if (manualOverride)
         {
+            manualOverride = false;
             Hold();
-            override = false;
         }
     }
 }
@@ -107,7 +108,7 @@ void Block::SetStatus(EStatus newStatus)
 
 void Block::Release()
 {
-    if (Mode::IsAuto() && !eStop)
+    if ((Mode::IsAuto() || manualOverride) && !eStop)
     {
         outputHandler.writeTwostate(this->deviceId, true);
         if (status == EStatus::BLOCKED)

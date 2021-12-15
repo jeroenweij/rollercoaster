@@ -52,6 +52,6 @@ class Block : public IBlock
   private:
     IBlock* nextBlock;
     Button overrideButton;
-    bool override;
+    bool manualOverride;
     bool eStop;
 };
