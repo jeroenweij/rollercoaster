@@ -25,19 +25,19 @@ class IoInput : NodeLib::IVariableHandler
     int AddCallback(const NodeLib::Id& id, T* inst, void (T::*func)(const Value&))
     {
         return AddCallbackx(id, [=](const Value& value)
-            { (inst->*func)(value); });
+                            { (inst->*func)(value); });
     }
 
     template <typename T>
     int AddCallback(const NodeLib::Id& id, T* inst, void (T::*func)(), bool boolValue)
     {
         return AddCallbackx(id, [=](const Value& value)
-            {
-                if (boolValue && value > 0)
-                {
-                    (inst->*func)();
-                }
-            });
+                            {
+                                if (boolValue && value > 0)
+                                {
+                                    (inst->*func)();
+                                }
+                            });
     }
 
   private:

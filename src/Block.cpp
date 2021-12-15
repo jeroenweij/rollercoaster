@@ -6,7 +6,11 @@
 #include "Arduino.h"
 #include "Mode.h"
 
-Block::Block(IoOutput& outputHandler, const int approachId, const int blockId, const NodeLib::Id& deviceId, const int overridePin) :
+Block::Block(IoOutput& outputHandler,
+             const int approachId,
+             const int blockId,
+             const NodeLib::Id& deviceId,
+             const int overridePin) :
     outputHandler(outputHandler),
     approachPin(approachId),
     blockPin(blockId),

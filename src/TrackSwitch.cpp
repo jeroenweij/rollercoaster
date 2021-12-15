@@ -6,7 +6,14 @@
 #include "Arduino.h"
 #include "Transfer.h"
 
-TrackSwitch::TrackSwitch(IoOutput& outputHandler, const int inputPin, const int uiPin, const NodeLib::Id& outputId, const Value valueWhenSet, const Value valueWhenUnset, Transfer& parent, bool (Transfer::*func)()) :
+TrackSwitch::TrackSwitch(IoOutput& outputHandler,
+                         const int inputPin,
+                         const int uiPin,
+                         const NodeLib::Id& outputId,
+                         const Value valueWhenSet,
+                         const Value valueWhenUnset,
+                         Transfer& parent,
+                         bool (Transfer::*func)()) :
     inputPin(inputPin),
     uiPin(uiPin),
     nextUpdate(0),

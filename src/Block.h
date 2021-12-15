@@ -17,7 +17,11 @@ using NodeLib::Id;
 class Block : public IBlock
 {
   public:
-    Block(IoOutput& outputHandler, const int approachId, const int blockId, const Id& deviceId, const int overridePin);
+    Block(IoOutput& outputHandler,
+          const int approachId,
+          const int blockId,
+          const Id& deviceId,
+          const int overridePin);
     ~Block() { }
 
     void Init();
