@@ -3,14 +3,14 @@
 *************************************************************/
 #include <Arduino.h>
 #include <NodeLib/NodeMaster.h>
-#include <tools/Logger.h>
 #include <pins.h>
+#include <tools/Logger.h>
 
 #include "IoConfig.h"
 #include "Rollercoaster.h"
 
 NodeLib::NodeMaster node(PIN_ENABLE_385, PIN_LED);
-Rollercoaster rollercoaster(node);
+Rollercoaster       rollercoaster(node);
 
 void setup(void)
 {

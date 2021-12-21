@@ -19,7 +19,7 @@ class IoInput : NodeLib::IVariableHandler
 
   public:
     IoInput(NodeLib::NodeMaster& nodeMaster);
-    ~IoInput() { }
+    ~IoInput() {}
 
     template <typename T>
     int AddCallback(const NodeLib::Id& id, T* inst, void (T::*func)(const Value&))
@@ -41,7 +41,7 @@ class IoInput : NodeLib::IVariableHandler
     }
 
   private:
-    int AddCallbackx(const NodeLib::Id& id, funct function);
+    int  AddCallbackx(const NodeLib::Id& id, funct function);
     void CallCallbacks(const NodeLib::Id& id, const Value& value);
     void SetInput(const NodeLib::Id& id);
 
@@ -51,7 +51,7 @@ class IoInput : NodeLib::IVariableHandler
     struct
     {
         NodeLib::Id id;
-        funct callback;
+        funct       callback;
     } callBackMap[maxCallbacks];
     int numCallbacks;
 };

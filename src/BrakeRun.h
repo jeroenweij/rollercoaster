@@ -13,9 +13,9 @@
 
 struct BrakeRunIds
 {
-    const int approachLed;
-    const int blockedLed;
-    const int overridePin;
+    const int          approachLed;
+    const int          blockedLed;
+    const int          overridePin;
     const NodeLib::Id& blockDevice;
     const NodeLib::Id& onTrainEnter;
     const NodeLib::Id& onTrainSet;
@@ -25,7 +25,7 @@ class BrakeRun : public Block
 {
   public:
     BrakeRun(IoOutput& outputHandler, IoInput inputHandler, BrakeRunIds& nodeIds, const TrackSwitch& exitSwitch, const bool isStorage);
-    ~BrakeRun() { }
+    ~BrakeRun() {}
 
     void Loop();
 
@@ -38,6 +38,6 @@ class BrakeRun : public Block
 
   private:
     const TrackSwitch& exitSwitch;
-    const bool isStorage;
-    unsigned long nextAction;
+    const bool         isStorage;
+    unsigned long      nextAction;
 };

@@ -16,9 +16,9 @@ class Mode
     void Loop();
 
     static const EMode GetMode();
-    static const bool IsManual();
-    static const bool IsAuto();
-    static const bool IsStop();
+    static const bool  IsManual();
+    static const bool  IsAuto();
+    static const bool  IsStop();
 
     void AddResetCallback(IBlock* block);
 
@@ -28,5 +28,5 @@ class Mode
     static EMode mode;
 
     IBlock* blocks[5];
-    int numBlocks;
+    int     numBlocks;
 };

@@ -15,7 +15,7 @@ namespace NodeId
 
     struct IoChannel
     {
-        const Id id;
+        const Id      id;
         const PinMode pinMode;
 
         IoChannel(const uint8_t node, const NodeLib::ChannelId channel, const Operation operation, const PinMode pinMode) :
@@ -56,7 +56,7 @@ namespace NodeId
 
     // Out
     static const IoChannel storageBrake(6, NodeLib::ChannelId::MOSFET_2, Operation::SET, PinMode::DIGITAL_OUT);
-}
+} // namespace NodeId
 
 class IoConfig
 {

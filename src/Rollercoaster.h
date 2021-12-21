@@ -21,7 +21,7 @@ class Rollercoaster
     Rollercoaster(NodeLib::NodeMaster& nodeMaster);
 
     /// Destructor.
-    virtual ~Rollercoaster() { }
+    virtual ~Rollercoaster() {}
 
     void Init();
     void Loop();
@@ -29,11 +29,11 @@ class Rollercoaster
   private:
     void DetermineMode();
 
-    IoInput inputHandler;
+    IoInput  inputHandler;
     IoOutput outputHandler;
 
-    Mode mode;
-    Station station;
-    Lift lift;
+    Mode     mode;
+    Station  station;
+    Lift     lift;
     Transfer transfer;
 };

@@ -15,6 +15,6 @@ using NodeLib::Id;
 class IBlock
 {
   public:
-    virtual bool IsFree() = 0;
+    virtual bool IsFree()    = 0;
     virtual void ResetStop() = 0;
 };

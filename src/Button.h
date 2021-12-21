@@ -9,11 +9,11 @@ class Button
   public:
     Button(const int inputPin);
 
-    void Init();
+    void       Init();
     const bool IsPressed();
 
   private:
-    const int inputPin;
-    bool state;
+    const int     inputPin;
+    bool          state;
     unsigned long nextUpdate;
 };

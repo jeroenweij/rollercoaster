@@ -6,11 +6,11 @@
 #include "Arduino.h"
 #include "Mode.h"
 
-Block::Block(IoOutput& outputHandler,
-             const int approachId,
-             const int blockId,
+Block::Block(IoOutput&          outputHandler,
+             const int          approachId,
+             const int          blockId,
              const NodeLib::Id& deviceId,
-             const int overridePin) :
+             const int          overridePin) :
     outputHandler(outputHandler),
     approachPin(approachId),
     blockPin(blockId),
@@ -42,7 +42,7 @@ void Block::Loop()
     if (Mode::IsStop() && !eStop)
     {
         Hold();
-        eStop = true;
+        eStop          = true;
         manualOverride = false;
     }
 

@@ -6,8 +6,8 @@
 #include "IoConfig.h"
 #include "pins.h"
 
-Lift::Lift(IoInput& inputHandler, IoOutput& outputHandler)
-    : Block(outputHandler, PIN_UI_LIFT_APPR, PIN_UI_LIFT_BLOCK, NodeId::liftMotor.id, PIN_MANUAL_LIFT)
+Lift::Lift(IoInput& inputHandler, IoOutput& outputHandler) :
+    Block(outputHandler, PIN_UI_LIFT_APPR, PIN_UI_LIFT_BLOCK, NodeId::liftMotor.id, PIN_MANUAL_LIFT)
 {
     inputHandler.AddCallback(NodeId::liftEnter.id, this, &Lift::OnTrainEnter, true);
     inputHandler.AddCallback(NodeId::liftSet.id, this, &Lift::OnTrainSet, true);
@@ -46,7 +46,8 @@ void Lift::OnTrainLeft()
 void Lift::OnNextBlockFreed()
 {
     LOG_INFO(F("Lift NextBlockFreed"));
-    if (IsBlocked()){
+    if (IsBlocked())
+    {
         Release();
     }
 }

@@ -13,7 +13,7 @@ class Lift : public Block
 {
   public:
     Lift(IoInput& inputHandler, IoOutput& outputHandler);
-    ~Lift() { }
+    ~Lift() {}
 
     void OnTrainEnter();
     void OnTrainLeft();

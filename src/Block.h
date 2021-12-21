@@ -22,7 +22,7 @@ class Block : public IBlock
           const int blockId,
           const Id& deviceId,
           const int overridePin);
-    ~Block() { }
+    ~Block() {}
 
     void Init();
     void Loop();
@@ -34,13 +34,13 @@ class Block : public IBlock
 
     virtual void OnNextBlockFreed() = 0;
 
-    void SetNextBlock(IBlock* block);
+    void         SetNextBlock(IBlock* block);
     virtual bool IsNextFree();
-    bool IsFree() override;
-    bool IsBlocked();
-    bool IsLeaving();
+    bool         IsFree() override;
+    bool         IsBlocked();
+    bool         IsLeaving();
     virtual bool IsApproaching();
-    void ResetStop() override;
+    void         ResetStop() override;
 
   protected:
     void SetStatus(EStatus newStatus);
@@ -51,11 +51,11 @@ class Block : public IBlock
     const int approachPin;
     const int blockPin;
     const Id& deviceId;
-    EStatus status;
+    EStatus   status;
 
   private:
     IBlock* nextBlock;
-    Button overrideButton;
-    bool manualOverride;
-    bool eStop;
+    Button  overrideButton;
+    bool    manualOverride;
+    bool    eStop;
 };

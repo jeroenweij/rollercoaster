@@ -17,7 +17,7 @@ class Transfer : public IBlock
 {
   public:
     Transfer(IoInput& inputHandler, IoOutput& outputHandler, Lift& lift);
-    ~Transfer() { }
+    ~Transfer() {}
     void Init();
     void Loop();
 
@@ -37,7 +37,7 @@ class Transfer : public IBlock
   private:
     TrackSwitch enterStorage;
     TrackSwitch exitStorage;
-    BrakeRun brakeRun;
-    BrakeRun storage;
-    Lift& lift;
+    BrakeRun    brakeRun;
+    BrakeRun    storage;
+    Lift&       lift;
 };

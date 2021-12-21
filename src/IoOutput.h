@@ -12,7 +12,7 @@ class IoOutput
 {
   public:
     IoOutput(NodeLib::NodeMaster& node);
-    ~IoOutput() { }
+    ~IoOutput() {}
 
     void SetOutput(const NodeLib::Id& id);
     void writeTwostate(const NodeLib::Id& id, bool value);

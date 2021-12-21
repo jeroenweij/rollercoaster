@@ -22,7 +22,8 @@ void BrakeRun::Loop()
     if (millis() > nextAction)
     {
         LOG_INFO(F("Brakerun Action"));
-        if (status == EStatus::EXPECTING){
+        if (status == EStatus::EXPECTING)
+        {
             Release();
         }
         nextAction = -1;

@@ -39,7 +39,7 @@ int IoInput::AddCallbackx(const Id& id, funct function)
 {
     if (numCallbacks < maxCallbacks)
     {
-        callBackMap[numCallbacks].id = id;
+        callBackMap[numCallbacks].id       = id;
         callBackMap[numCallbacks].callback = function;
 
         numCallbacks++;

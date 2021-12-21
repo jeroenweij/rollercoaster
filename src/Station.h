@@ -15,7 +15,7 @@ class Station : public Block
 {
   public:
     Station(IoInput& inputHandler, IoOutput& outputHandler);
-    ~Station() { }
+    ~Station() {}
 
     void OnTrainEnter();
     void OnTrainLeft();
@@ -26,7 +26,7 @@ class Station : public Block
     void Loop();
 
   private:
-    bool dispatchOk;
-    LedButton dispatchButton;
+    bool          dispatchOk;
+    LedButton     dispatchButton;
     unsigned long nextAction;
 };

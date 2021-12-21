@@ -25,7 +25,7 @@ const bool Button::IsPressed()
     {
         if (millis() > nextUpdate)
         {
-            state = newState;
+            state      = newState;
             nextUpdate = millis() + 100;
             return state;
         }
