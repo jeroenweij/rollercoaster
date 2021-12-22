@@ -24,7 +24,7 @@ struct BrakeRunIds
 class BrakeRun : public Block
 {
   public:
-    BrakeRun(IoOutput& outputHandler, IoInput inputHandler, BrakeRunIds& nodeIds, const TrackSwitch& exitSwitch, const bool isStorage);
+    BrakeRun(IoOutput& outputHandler, IoInput& inputHandler, BrakeRunIds& nodeIds, const TrackSwitch& exitSwitch, const bool isStorage);
     ~BrakeRun() {}
 
     void Loop();

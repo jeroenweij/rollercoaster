@@ -74,7 +74,7 @@ void Station::Loop()
     if (millis() > nextAction)
     {
         LOG_INFO(F("Station Action"));
-        if (status == EStatus::EXPECTING)
+        if (status == EStatus::ENTERED)
         {
             Release();
         }

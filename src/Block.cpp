@@ -10,7 +10,8 @@ Block::Block(IoOutput&          outputHandler,
              const int          approachId,
              const int          blockId,
              const NodeLib::Id& deviceId,
-             const int          overridePin) :
+             const int          overridePin,
+             const int          maxReleaseTimeSeconds) :
     outputHandler(outputHandler),
     approachPin(approachId),
     blockPin(blockId),
@@ -19,7 +20,9 @@ Block::Block(IoOutput&          outputHandler,
     nextBlock(nullptr),
     overrideButton(overridePin),
     manualOverride(false),
-    eStop(false)
+    released(false),
+    maxReleaseTimeSeconds(maxReleaseTimeSeconds),
+    releaseTime(0)
 {
     pinMode(approachPin, OUTPUT);
     pinMode(blockPin, OUTPUT);
@@ -39,32 +42,48 @@ void Block::Init()
 
 void Block::Loop()
 {
-    if (Mode::IsStop() && !eStop)
+    switch (Mode::GetMode())
     {
-        Hold();
-        eStop          = true;
-        manualOverride = false;
-    }
-
-    if (Mode::IsManual() && overrideButton.IsPressed())
-    {
-        if (!manualOverride)
-        {
-            manualOverride = true;
-            Release();
-        }
-    }
-    else
-    {
-        if (manualOverride)
-        {
+        case EMode::OFF:
+        case EMode::STOP:
             manualOverride = false;
-            Hold();
-        }
+            if (released)
+            {
+                Hold();
+            }
+            break;
+        case EMode::MANUAL:
+            if (overrideButton.IsPressed())
+            {
+                if (!manualOverride)
+                {
+                    LOG_INFO(F("Enable manual"));
+                    manualOverride = true;
+                    Release();
+                }
+            }
+            else
+            {
+                if (manualOverride)
+                {
+                    LOG_INFO(F("Disable manual"));
+                    manualOverride = false;
+                    Hold();
+                }
+            }
+            break;
+        case EMode::AUTO:
+            manualOverride = false;
+            if (released && millis() > releaseTime + (maxReleaseTimeSeconds * 1000))
+            {
+                Hold();
+                Mode::Error();
+            }
+            break;
     }
 }
 
-void Block::OnTrainAproaching()
+void Block::OnTrainApproaching()
 {
     SetStatus(EStatus::EXPECTING);
 }
@@ -103,7 +122,7 @@ void Block::SetStatus(EStatus newStatus)
 {
     if (this->status != newStatus)
     {
-        LOG_INFO("Set Status to " << newStatus);
+        LOG_INFO("Set block Status to " << newStatus);
         this->status = newStatus;
         digitalWrite(approachPin, status == EStatus::ENTERED || status == EStatus::EXPECTING || status == EStatus::LEAVING);
         digitalWrite(blockPin, status == EStatus::BLOCKED || status == EStatus::LEAVING);
@@ -112,9 +131,12 @@ void Block::SetStatus(EStatus newStatus)
 
 void Block::Release()
 {
-    if ((Mode::IsAuto() || manualOverride) && !eStop)
+    LOG_INFO("Release block");
+    if ((Mode::IsAuto() || manualOverride))
     {
         outputHandler.writeTwostate(this->deviceId, true);
+        released    = true;
+        releaseTime = millis();
         if (status == EStatus::BLOCKED)
         {
             SetStatus(EStatus::LEAVING);
@@ -125,6 +147,7 @@ void Block::Release()
 void Block::Hold()
 {
     outputHandler.writeTwostate(this->deviceId, false);
+    released = false;
 }
 
 bool Block::IsFree()
@@ -146,7 +169,6 @@ bool Block::IsApproaching()
 
 void Block::ResetStop()
 {
-    eStop = false;
     if ((status == EStatus::ENTERED) || (status == EStatus::LEAVING) || (status == EStatus::BLOCKED && IsNextFree()))
     {
         Release();

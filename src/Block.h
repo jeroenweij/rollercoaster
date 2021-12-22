@@ -21,13 +21,14 @@ class Block : public IBlock
           const int approachId,
           const int blockId,
           const Id& deviceId,
-          const int overridePin);
+          const int overridePin,
+          const int maxReleaseTimeSeconds = 5);
     ~Block() {}
 
     void Init();
     void Loop();
 
-    void OnTrainAproaching();
+    void OnTrainApproaching() override;
     void OnTrainEnter();
     void OnTrainLeft();
     void OnTrainSet();
@@ -52,10 +53,12 @@ class Block : public IBlock
     const int blockPin;
     const Id& deviceId;
     EStatus   status;
+    IBlock*   nextBlock;
 
   private:
-    IBlock* nextBlock;
-    Button  overrideButton;
-    bool    manualOverride;
-    bool    eStop;
+    Button        overrideButton;
+    bool          manualOverride;
+    bool          released;
+    const int     maxReleaseTimeSeconds;
+    unsigned long releaseTime;
 };

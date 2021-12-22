@@ -21,7 +21,7 @@ class Transfer : public IBlock
     void Init();
     void Loop();
 
-    void OnTrainApproaching();
+    void OnTrainApproaching() override;
     void OnTrainLeft();
     void OnNextBlockFreed();
     void SetNextBlock(IBlock* block);

@@ -6,7 +6,7 @@
 #include "Arduino.h"
 #include "IoConfig.h"
 
-BrakeRun::BrakeRun(IoOutput& outputHandler, IoInput inputHandler, BrakeRunIds& nodeIds, const TrackSwitch& exitSwitch, const bool isStorage) :
+BrakeRun::BrakeRun(IoOutput& outputHandler, IoInput& inputHandler, BrakeRunIds& nodeIds, const TrackSwitch& exitSwitch, const bool isStorage) :
     Block(outputHandler, nodeIds.approachLed, nodeIds.blockedLed, nodeIds.blockDevice, nodeIds.overridePin),
     exitSwitch(exitSwitch),
     isStorage(isStorage),
@@ -22,7 +22,7 @@ void BrakeRun::Loop()
     if (millis() > nextAction)
     {
         LOG_INFO(F("Brakerun Action"));
-        if (status == EStatus::EXPECTING)
+        if (status == EStatus::ENTERED)
         {
             Release();
         }
@@ -33,7 +33,7 @@ void BrakeRun::Loop()
 void BrakeRun::OnTrainApproaching()
 {
     LOG_INFO(F("Brakerun Train Approaching"));
-    Block::OnTrainAproaching();
+    Block::OnTrainApproaching();
 }
 
 void BrakeRun::OnTrainEnter()

@@ -13,6 +13,7 @@ Mode::Mode() :
     numBlocks(0)
 {
     Init();
+    digitalWrite(PIN_E_STOP_RESET_LED, HIGH);
 }
 
 void Mode::Init()
@@ -31,6 +32,7 @@ void Mode::Loop()
 
     if (mode == EMode::STOP)
     {
+        newMode = EMode::STOP;
         if (digitalRead(PIN_E_STOP))
         {
 
@@ -40,6 +42,7 @@ void Mode::Loop()
             }
             else
             {
+                digitalWrite(PIN_E_STOP_RESET_LED, LOW);
                 newMode = EMode::OFF;
             }
         }
@@ -74,7 +77,6 @@ void Mode::Loop()
 
 void Mode::ResetRestart()
 {
-    digitalWrite(PIN_E_STOP_RESET_LED, LOW);
     for (int i = 0; i < numBlocks; i++)
     {
         blocks[i]->ResetStop();
@@ -112,4 +114,10 @@ const bool Mode::IsAuto()
 const bool Mode::IsStop()
 {
     return mode == EMode::STOP;
+}
+
+const bool Mode::Error()
+{
+    mode = EMode::STOP;
+    LOG_ERROR(F("ERROR"));
 }

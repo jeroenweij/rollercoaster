@@ -6,8 +6,10 @@
 #include "IoConfig.h"
 #include "pins.h"
 
+#define LIFTMAXTIMESECONDS 30
+
 Lift::Lift(IoInput& inputHandler, IoOutput& outputHandler) :
-    Block(outputHandler, PIN_UI_LIFT_APPR, PIN_UI_LIFT_BLOCK, NodeId::liftMotor.id, PIN_MANUAL_LIFT)
+    Block(outputHandler, PIN_UI_LIFT_APPR, PIN_UI_LIFT_BLOCK, NodeId::liftMotor.id, PIN_MANUAL_LIFT, LIFTMAXTIMESECONDS)
 {
     inputHandler.AddCallback(NodeId::liftEnter.id, this, &Lift::OnTrainEnter, true);
     inputHandler.AddCallback(NodeId::liftSet.id, this, &Lift::OnTrainSet, true);
@@ -29,6 +31,7 @@ void Lift::OnTrainSet()
     if (IsNextFree())
     {
         Release();
+        nextBlock->OnTrainApproaching();
     }
     else
     {
@@ -49,5 +52,6 @@ void Lift::OnNextBlockFreed()
     if (IsBlocked())
     {
         Release();
+        nextBlock->OnTrainApproaching();
     }
 }

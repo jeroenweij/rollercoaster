@@ -28,7 +28,7 @@ Transfer::Transfer(IoInput& inputHandler, IoOutput& outputHandler, Lift& lift) :
     enterStorage(outputHandler, PIN_ENTER_SWITCH, PIN_UI_ENTER_SWITCH, NodeId::transferInSwitch.id, 180, 0, *this, &Transfer::EnterSwitchSafeToMove),
     exitStorage(outputHandler, PIN_EXIT_SWITCH, PIN_UI_EXIT_SWITCH, NodeId::transferOutSwitch.id, 180, 0, *this, &Transfer::ExitSwitchSafeToMove),
     brakeRun(outputHandler, inputHandler, brakeRunIds, exitStorage, false),
-    storage(outputHandler, inputHandler, brakeRunIds, exitStorage, true),
+    storage(outputHandler, inputHandler, storageTrackIds, exitStorage, true),
     lift(lift)
 {
     inputHandler.AddCallback(NodeId::liftLeft.id, this, &Transfer::OnTrainApproaching, true);

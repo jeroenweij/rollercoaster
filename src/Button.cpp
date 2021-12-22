@@ -20,15 +20,14 @@ void Button::Init()
 
 const bool Button::IsPressed()
 {
-    const bool newState = !digitalRead(inputPin);
-    if (newState != state)
+    if (millis() > nextUpdate)
     {
-        if (millis() > nextUpdate)
+        const bool newState = !digitalRead(inputPin);
+        if (newState != state)
         {
             state      = newState;
             nextUpdate = millis() + 100;
-            return state;
         }
     }
-    return false;
+    return state;
 }
