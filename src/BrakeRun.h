@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <tools/DelayTimer.h>
 #include <tools/Logger.h>
 
 #include "Block.h"
@@ -39,5 +40,5 @@ class BrakeRun : public Block
   private:
     const TrackSwitch& exitSwitch;
     const bool         isStorage;
-    unsigned long      nextAction;
+    DelayTimer         delayRelease;
 };

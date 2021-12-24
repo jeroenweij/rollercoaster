@@ -20,6 +20,7 @@ void IoConfig::ConfigureIo()
     ConfigureChannel(NodeId::stationEnter);
     ConfigureChannel(NodeId::stationSet);
     ConfigureChannel(NodeId::stationBrake);
+    ConfigureChannel(NodeId::stationGates);
     ConfigureChannel(NodeId::liftEnter);
     ConfigureChannel(NodeId::liftSet);
     ConfigureChannel(NodeId::liftLeft);

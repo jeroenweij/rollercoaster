@@ -31,6 +31,7 @@ namespace NodeId
     static const IoChannel stationSet(1, NodeLib::ChannelId::DIGITAL_2, Operation::VALUE, PinMode::DIGITAL_IN);
     // Out
     static const IoChannel stationBrake(1, NodeLib::ChannelId::MOSFET_2, Operation::SET, PinMode::DIGITAL_OUT);
+    static const IoChannel stationGates(1, NodeLib::ChannelId::DIGITAL_5, Operation::SET, PinMode::SERVO);
 
     // Lift
     // In

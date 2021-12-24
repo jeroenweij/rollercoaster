@@ -4,12 +4,15 @@
 
 #pragma once
 
+#include <tools/DelayTimer.h>
+#include <tools/Logger.h>
+
 #include "Block.h"
 #include "Button.h"
+#include "Gates.h"
 #include "IoInput.h"
 #include "IoOutput.h"
 #include "LedButton.h"
-#include <tools/Logger.h>
 
 class Station : public Block
 {
@@ -26,7 +29,7 @@ class Station : public Block
     void Loop();
 
   private:
-    bool          dispatchOk;
-    LedButton     dispatchButton;
-    unsigned long nextAction;
+    LedButton  dispatchButton;
+    DelayTimer delayRelease;
+    Gates      gates;
 };

@@ -5,13 +5,14 @@
 #include "Station.h"
 #include "Arduino.h"
 #include "IoConfig.h"
+#include "Mode.h"
 #include "pins.h"
 
 Station::Station(IoInput& inputHandler, IoOutput& outputHandler) :
     Block(outputHandler, PIN_UI_STATION_APPR, PIN_UI_STATION_BLOCK, NodeId::stationBrake.id, PIN_MANUAL_STATION),
-    dispatchOk(false),
     dispatchButton(PIN_DISPATCH, PIN_DISPATCH_LED),
-    nextAction(-1)
+    delayRelease(),
+    gates(outputHandler)
 {
     inputHandler.AddCallback(NodeId::stationEnter.id, this, &Station::OnTrainEnter, true);
     inputHandler.AddCallback(NodeId::stationSet.id, this, &Station::OnTrainSet, true);
@@ -23,18 +24,14 @@ void Station::OnTrainEnter()
 {
     LOG_INFO(F("Station Train Enter"));
     Block::OnTrainEnter();
-    nextAction = millis() + 2000;
+    delayRelease.Start(2000);
 }
 
 void Station::OnTrainSet()
 {
     LOG_INFO(F("Station Train Set"));
+    delayRelease.Stop();
     Block::OnTrainSet();
-    if (IsNextFree())
-    {
-        dispatchOk = true;
-        dispatchButton.SetLed(true);
-    }
     Hold();
 }
 
@@ -48,36 +45,34 @@ void Station::OnTrainLeft()
 void Station::OnNextBlockFreed()
 {
     LOG_INFO(F("Station NextBlockFreed"));
-    if (IsBlocked())
-    {
-        dispatchOk = true;
-        dispatchButton.SetLed(true);
-    }
 }
 
 void Station::Init()
 {
     Block::Init();
     dispatchButton.Init();
+    gates.Init();
 }
 
 void Station::Loop()
 {
     Block::Loop();
-    if (dispatchButton.IsPressed() && dispatchOk)
+    const bool canDispatch = IsBlocked() && IsNextFree() && !gates.IsOpen() && Mode::IsAuto();
+    dispatchButton.SetLed(canDispatch);
+
+    if (canDispatch && dispatchButton.IsPressed())
     {
         Release();
-        dispatchButton.SetLed(false);
-        dispatchOk = false;
     }
 
-    if (millis() > nextAction)
+    if (delayRelease.Finished())
     {
         LOG_INFO(F("Station Action"));
         if (status == EStatus::ENTERED)
         {
             Release();
         }
-        nextAction = -1;
     }
+
+    gates.Check(IsBlocked());
 }

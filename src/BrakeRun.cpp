@@ -10,7 +10,7 @@ BrakeRun::BrakeRun(IoOutput& outputHandler, IoInput& inputHandler, BrakeRunIds& 
     Block(outputHandler, nodeIds.approachLed, nodeIds.blockedLed, nodeIds.blockDevice, nodeIds.overridePin),
     exitSwitch(exitSwitch),
     isStorage(isStorage),
-    nextAction(-1)
+    delayRelease()
 {
     inputHandler.AddCallback(nodeIds.onTrainEnter, this, &BrakeRun::OnTrainEnter, true);
     inputHandler.AddCallback(nodeIds.onTrainSet, this, &BrakeRun::OnTrainSet, true);
@@ -19,14 +19,13 @@ BrakeRun::BrakeRun(IoOutput& outputHandler, IoInput& inputHandler, BrakeRunIds& 
 void BrakeRun::Loop()
 {
     Block::Loop();
-    if (millis() > nextAction)
+    if (delayRelease.Finished())
     {
         LOG_INFO(F("Brakerun Action"));
         if (status == EStatus::ENTERED)
         {
             Release();
         }
-        nextAction = -1;
     }
 }
 
@@ -40,12 +39,13 @@ void BrakeRun::OnTrainEnter()
 {
     LOG_INFO(F("Brakerun Train Enter"));
     Block::OnTrainEnter();
-    nextAction = millis() + 2000;
+    delayRelease.Start(2000);
 }
 
 void BrakeRun::OnTrainSet()
 {
     LOG_INFO(F("Brakerun Train Set"));
+    delayRelease.Stop();
     Block::OnTrainSet();
     if (IsNextFree())
     {

@@ -8,9 +8,9 @@
 Button::Button(const int inputPin) :
     inputPin(inputPin),
     state(false),
-    nextUpdate(0)
+    nextUpdate()
 {
-    pinMode(inputPin, INPUT_PULLUP);
+    Init();
 }
 
 void Button::Init()
@@ -20,13 +20,13 @@ void Button::Init()
 
 const bool Button::IsPressed()
 {
-    if (millis() > nextUpdate)
+    if (nextUpdate.Finished() || !nextUpdate.isRunning())
     {
         const bool newState = !digitalRead(inputPin);
         if (newState != state)
         {
-            state      = newState;
-            nextUpdate = millis() + 100;
+            state = newState;
+            nextUpdate.Start(100);
         }
     }
     return state;

@@ -16,7 +16,7 @@ TrackSwitch::TrackSwitch(IoOutput&          outputHandler,
                          bool (Transfer::*func)()) :
     inputPin(inputPin),
     uiPin(uiPin),
-    nextUpdate(0),
+    nextUpdate(),
     outputHandler(outputHandler),
     outputId(outputId),
     valueWhenSet(valueWhenSet),
@@ -39,14 +39,14 @@ void TrackSwitch::Init()
 
 void TrackSwitch::Loop()
 {
-    if (millis() > nextUpdate)
+    if (nextUpdate.Finished() || !nextUpdate.isRunning())
     {
         const bool setTo = !digitalRead(inputPin);
         if (setTo != set)
         {
             Set(setTo);
         }
-        nextUpdate = millis() + 100;
+        nextUpdate.Start(100);
     }
 }
 

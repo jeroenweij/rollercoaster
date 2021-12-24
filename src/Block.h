@@ -5,12 +5,13 @@
 #pragma once
 
 #include <NodeLib/id.h>
+#include <tools/DelayTimer.h>
+#include <tools/Logger.h>
 
 #include "Button.h"
 #include "EStatus.h"
 #include "IBlock.h"
 #include "IoOutput.h"
-#include <tools/Logger.h>
 
 using NodeLib::Id;
 
@@ -56,9 +57,9 @@ class Block : public IBlock
     IBlock*   nextBlock;
 
   private:
-    Button        overrideButton;
-    bool          manualOverride;
-    bool          released;
-    const int     maxReleaseTimeSeconds;
-    unsigned long releaseTime;
+    Button     overrideButton;
+    bool       manualOverride;
+    bool       released;
+    const int  maxReleaseTimeSeconds;
+    DelayTimer releaseTime;
 };

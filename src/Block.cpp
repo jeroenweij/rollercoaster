@@ -22,7 +22,7 @@ Block::Block(IoOutput&          outputHandler,
     manualOverride(false),
     released(false),
     maxReleaseTimeSeconds(maxReleaseTimeSeconds),
-    releaseTime(0)
+    releaseTime()
 {
     pinMode(approachPin, OUTPUT);
     pinMode(blockPin, OUTPUT);
@@ -74,7 +74,7 @@ void Block::Loop()
             break;
         case EMode::AUTO:
             manualOverride = false;
-            if (released && millis() > releaseTime + (maxReleaseTimeSeconds * 1000))
+            if (released && releaseTime.Finished())
             {
                 Hold();
                 Mode::Error();
@@ -135,8 +135,8 @@ void Block::Release()
     if ((Mode::IsAuto() || manualOverride))
     {
         outputHandler.writeTwostate(this->deviceId, true);
-        released    = true;
-        releaseTime = millis();
+        released = true;
+        releaseTime.Start(maxReleaseTimeSeconds * 1000);
         if (status == EStatus::BLOCKED)
         {
             SetStatus(EStatus::LEAVING);
@@ -148,6 +148,7 @@ void Block::Hold()
 {
     outputHandler.writeTwostate(this->deviceId, false);
     released = false;
+    releaseTime.Stop();
 }
 
 bool Block::IsFree()

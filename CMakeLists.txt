@@ -42,6 +42,8 @@ add_executable(${CMAKE_PROJECT_NAME}
     src/LedButton.cpp
     src/Mode.h
     src/Mode.cpp
+    src/Gates.h
+    src/Gates.cpp
 )
 
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE

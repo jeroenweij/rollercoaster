@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <tools/DelayTimer.h>
 #include <tools/FunctionPtr.h>
 
 #include "NodeLib/id.h"
@@ -34,7 +35,7 @@ class TrackSwitch
 
     const int          inputPin;
     const int          uiPin;
-    unsigned long      nextUpdate;
+    DelayTimer         nextUpdate;
     IoOutput&          outputHandler;
     const NodeLib::Id& outputId;
     const Value        valueWhenSet;

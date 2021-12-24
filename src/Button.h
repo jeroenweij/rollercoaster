@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <tools/DelayTimer.h>
+
 class Button
 {
   public:
@@ -13,7 +15,7 @@ class Button
     const bool IsPressed();
 
   private:
-    const int     inputPin;
-    bool          state;
-    unsigned long nextUpdate;
+    const int  inputPin;
+    bool       state;
+    DelayTimer nextUpdate;
 };
