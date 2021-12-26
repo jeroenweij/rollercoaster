@@ -7,21 +7,23 @@
 #include <pins.h>
 
 BrakeRunIds brakeRunIds = {
-    .approachLed  = PIN_UI_BRAKE_APPR,
-    .blockedLed   = PIN_UI_BRAKE_BLOCK,
-    .overridePin  = PIN_MANUAL_BRAKE,
-    .blockDevice  = NodeId::brakerunBrake.id,
-    .onTrainEnter = NodeId::brakeRunEnter.id,
-    .onTrainSet   = NodeId::brakeRunSet.id,
+    .approachLed    = PIN_UI_BRAKE_APPR,
+    .blockedLed     = PIN_UI_BRAKE_BLOCK,
+    .overridePin    = PIN_MANUAL_BRAKE,
+    .blockDevice    = NodeId::brakerunBrake.id,
+    .onTrainEnter   = NodeId::brakeRunEnter.id,
+    .onTrainSet     = NodeId::brakeRunSet.id,
+    .onTrainCleared = NodeId::stationEnter.id,
 };
 
 BrakeRunIds storageTrackIds = {
-    .approachLed  = PIN_UI_STORAGE_APPR,
-    .blockedLed   = PIN_UI_STORAGE_BLOCK,
-    .overridePin  = PIN_MANUAL_STORAGE,
-    .blockDevice  = NodeId::storageBrake.id,
-    .onTrainEnter = NodeId::storageEnter.id,
-    .onTrainSet   = NodeId::storageSet.id,
+    .approachLed    = PIN_UI_STORAGE_APPR,
+    .blockedLed     = PIN_UI_STORAGE_BLOCK,
+    .overridePin    = PIN_MANUAL_STORAGE,
+    .blockDevice    = NodeId::storageBrake.id,
+    .onTrainEnter   = NodeId::storageEnter.id,
+    .onTrainSet     = NodeId::storageSet.id,
+    .onTrainCleared = NodeId::stationEnter.id,
 };
 
 Transfer::Transfer(IoInput& inputHandler, IoOutput& outputHandler, Lift& lift) :

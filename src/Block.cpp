@@ -95,7 +95,10 @@ void Block::OnTrainEnter()
 
 void Block::OnTrainSet()
 {
-    SetStatus(EStatus::BLOCKED);
+    if (IsApproaching() || IsFree())
+    {
+        SetStatus(EStatus::BLOCKED);
+    }
 }
 
 void Block::OnTrainLeft()
@@ -155,17 +158,25 @@ bool Block::IsFree()
 {
     return this->status == EStatus::FREE;
 }
+
 bool Block::IsBlocked()
 {
     return this->status == EStatus::BLOCKED;
 }
+
 bool Block::IsLeaving()
 {
     return this->status == EStatus::LEAVING;
 }
+
 bool Block::IsApproaching()
 {
     return this->status == EStatus::EXPECTING || status == EStatus::ENTERED;
+}
+
+const bool Block::IsEntered() const
+{
+    return status == EStatus::ENTERED;
 }
 
 void Block::ResetStop()

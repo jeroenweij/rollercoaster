@@ -14,6 +14,7 @@ BrakeRun::BrakeRun(IoOutput& outputHandler, IoInput& inputHandler, BrakeRunIds& 
 {
     inputHandler.AddCallback(nodeIds.onTrainEnter, this, &BrakeRun::OnTrainEnter, true);
     inputHandler.AddCallback(nodeIds.onTrainSet, this, &BrakeRun::OnTrainSet, true);
+    inputHandler.AddCallback(nodeIds.onTrainCleared, this, &BrakeRun::OnTrainCleared, true);
 }
 
 void BrakeRun::Loop()
@@ -22,7 +23,7 @@ void BrakeRun::Loop()
     if (delayRelease.Finished())
     {
         LOG_INFO(F("Brakerun Action"));
-        if (status == EStatus::ENTERED)
+        if (IsEntered())
         {
             Release();
         }
@@ -52,6 +53,14 @@ void BrakeRun::OnTrainSet()
         Release();
     }
     else
+    {
+        Hold();
+    }
+}
+
+void BrakeRun::OnTrainCleared()
+{
+    if (IsLeaving())
     {
         Hold();
     }

@@ -25,7 +25,7 @@ void setup(void)
     LOG_INFO(F("Setting up"));
     LOG_DEBUG(F("Debug log enabled"));
 
-    node.Init();
+    node.Init(6, PIN_E_STOP_RESET_LED, PIN_E_STOP_RESET);
     rollercoaster.Init();
     digitalWrite(PIN_LED, LOW);
 

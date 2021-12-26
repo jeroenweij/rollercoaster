@@ -43,6 +43,7 @@ class Block : public IBlock
     bool         IsLeaving();
     virtual bool IsApproaching();
     void         ResetStop() override;
+    const bool   IsEntered() const;
 
   protected:
     void SetStatus(EStatus newStatus);
@@ -53,10 +54,10 @@ class Block : public IBlock
     const int approachPin;
     const int blockPin;
     const Id& deviceId;
-    EStatus   status;
     IBlock*   nextBlock;
 
   private:
+    EStatus    status;
     Button     overrideButton;
     bool       manualOverride;
     bool       released;

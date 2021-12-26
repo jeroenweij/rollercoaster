@@ -29,10 +29,13 @@ void Station::OnTrainEnter()
 
 void Station::OnTrainSet()
 {
-    LOG_INFO(F("Station Train Set"));
-    delayRelease.Stop();
-    Block::OnTrainSet();
-    Hold();
+    if (IsApproaching())
+    {
+        LOG_INFO(F("Station Train Set"));
+        delayRelease.Stop();
+        Block::OnTrainSet();
+        Hold();
+    }
 }
 
 void Station::OnTrainLeft()
@@ -45,6 +48,11 @@ void Station::OnTrainLeft()
 void Station::OnNextBlockFreed()
 {
     LOG_INFO(F("Station NextBlockFreed"));
+}
+
+void Station::ResetStop()
+{
+    LOG_INFO(F("Station Stop Reset"));
 }
 
 void Station::Init()
@@ -68,7 +76,7 @@ void Station::Loop()
     if (delayRelease.Finished())
     {
         LOG_INFO(F("Station Action"));
-        if (status == EStatus::ENTERED)
+        if (IsEntered())
         {
             Release();
         }

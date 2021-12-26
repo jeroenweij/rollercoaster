@@ -24,6 +24,7 @@ class Station : public Block
     void OnTrainLeft();
     void OnTrainSet();
     void OnNextBlockFreed();
+    void ResetStop() override;
 
     void Init();
     void Loop();

@@ -20,6 +20,7 @@ struct BrakeRunIds
     const NodeLib::Id& blockDevice;
     const NodeLib::Id& onTrainEnter;
     const NodeLib::Id& onTrainSet;
+    const NodeLib::Id& onTrainCleared;
 };
 
 class BrakeRun : public Block
@@ -34,6 +35,7 @@ class BrakeRun : public Block
     void OnTrainEnter();
     void OnTrainLeft();
     void OnTrainSet();
+    void OnTrainCleared();
     void OnNextBlockFreed();
     bool IsNextFree() override;
 
