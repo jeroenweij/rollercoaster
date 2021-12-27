@@ -6,6 +6,7 @@
 #include <tools/Logger.h>
 
 #include "IoInput.h"
+#include "Mode.h"
 
 using NodeLib::Id;
 using NodeLib::NodeMaster;
@@ -21,6 +22,11 @@ IoInput::IoInput(NodeMaster& nodeMaster) :
 void IoInput::ReceivedMessage(const NodeLib::Message& message)
 {
     CallCallbacks(message.id, message.value);
+}
+
+void IoInput::ConnectionLost()
+{
+    Mode::Error();
 }
 
 void IoInput::CallCallbacks(const Id& id, const Value& value)

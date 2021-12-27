@@ -29,7 +29,7 @@ void Station::OnTrainEnter()
 
 void Station::OnTrainSet()
 {
-    if (IsApproaching())
+    if (IsApproaching() || IsFree())
     {
         LOG_INFO(F("Station Train Set"));
         delayRelease.Stop();

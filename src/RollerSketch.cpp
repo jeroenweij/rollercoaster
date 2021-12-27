@@ -9,7 +9,7 @@
 #include "IoConfig.h"
 #include "Rollercoaster.h"
 
-NodeLib::NodeMaster node(PIN_ENABLE_385, PIN_LED);
+NodeLib::NodeMaster node(PIN_ENABLE_385, PIN_E_STOP_RESET_LED, PIN_E_STOP_RESET);
 Rollercoaster       rollercoaster(node);
 
 void setup(void)
@@ -25,7 +25,7 @@ void setup(void)
     LOG_INFO(F("Setting up"));
     LOG_DEBUG(F("Debug log enabled"));
 
-    node.Init(6, PIN_E_STOP_RESET_LED, PIN_E_STOP_RESET);
+    node.Init(6);
     rollercoaster.Init();
     digitalWrite(PIN_LED, LOW);
 

@@ -46,7 +46,8 @@ class IoInput : NodeLib::IVariableHandler
     void SetInput(const NodeLib::Id& id);
 
     // --- IVariableHandler interface implementation ---
-    virtual void ReceivedMessage(const NodeLib::Message& message);
+    void ReceivedMessage(const NodeLib::Message& message) override;
+    void ConnectionLost() override;
 
     struct
     {

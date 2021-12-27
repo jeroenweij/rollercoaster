@@ -103,7 +103,10 @@ void Block::OnTrainSet()
 
 void Block::OnTrainLeft()
 {
-    SetStatus(EStatus::FREE);
+    if (IsLeaving())
+    {
+        SetStatus(EStatus::FREE);
+    }
 }
 
 void Block::SetNextBlock(IBlock* block)
