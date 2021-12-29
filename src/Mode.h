@@ -19,6 +19,7 @@ class Mode
     static const bool  IsManual();
     static const bool  IsAuto();
     static const bool  IsStop();
+    static const bool  IsOn();
     static const bool  Error();
 
     void AddResetCallback(IBlock* block);

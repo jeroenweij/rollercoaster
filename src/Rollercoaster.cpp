@@ -25,6 +25,9 @@ Rollercoaster::Rollercoaster(NodeMaster& nodeMaster) :
     mode.AddResetCallback(&station);
     mode.AddResetCallback(&lift);
     mode.AddResetCallback(&transfer);
+
+    pinMode(PIN_UI_PWM, OUTPUT);
+    analogWrite(PIN_UI_PWM, 150);
 }
 
 void Rollercoaster::Init()

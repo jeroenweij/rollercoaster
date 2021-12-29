@@ -53,6 +53,10 @@ void Station::OnNextBlockFreed()
 void Station::ResetStop()
 {
     LOG_INFO(F("Station Stop Reset"));
+    if (IsLeaving() || IsEntered())
+    {
+        Block::ResetStop();
+    }
 }
 
 void Station::Init()
@@ -82,5 +86,5 @@ void Station::Loop()
         }
     }
 
-    gates.Check(IsBlocked());
+    gates.Check(IsBlocked() && Mode::IsOn());
 }

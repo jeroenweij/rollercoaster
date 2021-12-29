@@ -116,6 +116,11 @@ const bool Mode::IsStop()
     return mode == EMode::STOP;
 }
 
+const bool Mode::IsOn()
+{
+    return mode == EMode::MANUAL || mode == EMode::AUTO;
+}
+
 const bool Mode::Error()
 {
     mode = EMode::STOP;

@@ -4,6 +4,7 @@
 
 #include "TrackSwitch.h"
 #include "Arduino.h"
+#include "Mode.h"
 #include "Transfer.h"
 
 TrackSwitch::TrackSwitch(IoOutput&          outputHandler,
@@ -39,7 +40,7 @@ void TrackSwitch::Init()
 
 void TrackSwitch::Loop()
 {
-    if (nextUpdate.Finished() || !nextUpdate.isRunning())
+    if (Mode::IsOn() && (nextUpdate.Finished() || !nextUpdate.isRunning()))
     {
         const bool setTo = !digitalRead(inputPin);
         if (setTo != set)

@@ -9,7 +9,7 @@
 #include "IoConfig.h"
 #include "Rollercoaster.h"
 
-NodeLib::NodeMaster node(PIN_ENABLE_385, PIN_E_STOP_RESET_LED, PIN_E_STOP_RESET);
+NodeLib::NodeMaster node(PIN_ENABLE_385, PIN_LED, PIN_E_STOP_RESET_LED, PIN_E_STOP_RESET);
 Rollercoaster       rollercoaster(node);
 
 void setup(void)
