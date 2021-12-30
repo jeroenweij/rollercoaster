@@ -18,4 +18,5 @@ class IBlock
     virtual bool IsFree()             = 0;
     virtual void ResetStop()          = 0;
     virtual void OnTrainApproaching() = 0;
+    virtual void Clear()              = 0;
 };

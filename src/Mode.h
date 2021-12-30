@@ -20,7 +20,7 @@ class Mode
     static const bool  IsAuto();
     static const bool  IsStop();
     static const bool  IsOn();
-    static const bool  Error();
+    static const bool  Error(const bool doClearOnReset = false);
 
     void AddResetCallback(IBlock* block);
 
@@ -29,6 +29,7 @@ class Mode
     const bool EStopPressed();
 
     static EMode mode;
+    static bool  clearOnReset;
 
     IBlock* blocks[5];
     int     numBlocks;

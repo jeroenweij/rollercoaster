@@ -27,7 +27,8 @@ class Rollercoaster
     void Loop();
 
   private:
-    void DetermineMode();
+    void      DetermineMode();
+    const int CountTrains();
 
     IoInput  inputHandler;
     IoOutput outputHandler;

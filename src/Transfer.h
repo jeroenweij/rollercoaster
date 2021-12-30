@@ -21,18 +21,22 @@ class Transfer : public IBlock
     void Init();
     void Loop();
 
+    // IBlock implementation
+    bool IsFree() override;
+    void ResetStop() override;
     void OnTrainApproaching() override;
+    void Clear() override;
+
     void OnTrainLeft();
     void OnNextBlockFreed();
     void SetNextBlock(IBlock* block);
     void SwitchChanged();
-
     bool IsApproaching();
-    bool IsFree() override;
-    void ResetStop() override;
 
     bool EnterSwitchSafeToMove();
     bool ExitSwitchSafeToMove();
+
+    const int CountTrains();
 
   private:
     TrackSwitch enterStorage;

@@ -7,7 +7,8 @@
 #include <pins.h>
 #include <tools/Logger.h>
 
-EMode Mode::mode = EMode::OFF;
+EMode Mode::mode         = EMode::OFF;
+bool  Mode::clearOnReset = false;
 
 Mode::Mode() :
     numBlocks(0)
@@ -78,10 +79,15 @@ void Mode::Loop()
 
 void Mode::ResetRestart()
 {
-    for (int i = 0; i < numBlocks; i++)
+    for (IBlock* const block : blocks)
     {
-        blocks[i]->ResetStop();
+        if (clearOnReset)
+        {
+            block->Clear();
+        }
+        block->ResetStop();
     }
+    clearOnReset = false;
 }
 
 const bool Mode::EStopPressed()
@@ -127,8 +133,12 @@ const bool Mode::IsOn()
     return mode == EMode::MANUAL || mode == EMode::AUTO;
 }
 
-const bool Mode::Error()
+const bool Mode::Error(const bool doClearOnReset)
 {
     mode = EMode::STOP;
     LOG_ERROR(F("ERROR"));
+    if (doClearOnReset)
+    {
+        clearOnReset = true;
+    }
 }

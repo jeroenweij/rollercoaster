@@ -88,6 +88,11 @@ void Block::OnTrainApproaching()
     SetStatus(EStatus::EXPECTING);
 }
 
+void Block::Clear()
+{
+    SetStatus(EStatus::FREE);
+}
+
 void Block::OnTrainEnter()
 {
     SetStatus(EStatus::ENTERED);

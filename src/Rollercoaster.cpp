@@ -44,4 +44,24 @@ void Rollercoaster::Loop()
     transfer.Loop();
     station.Loop();
     lift.Loop();
+
+    if (Mode::IsOn() && CountTrains() > 2)
+    {
+        LOG_ERROR(F("Detected too many trains: ") << CountTrains());
+        Mode::Error(true);
+    }
+}
+
+const int Rollercoaster::CountTrains()
+{
+    int count = 0;
+    if (station.IsBlocked() || station.IsApproaching())
+    {
+        count++;
+    }
+    if (lift.IsBlocked() || lift.IsApproaching())
+    {
+        count++;
+    }
+    return count + transfer.CountTrains();
 }

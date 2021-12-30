@@ -29,7 +29,12 @@ class Block : public IBlock
     void Init();
     void Loop();
 
+    // IBlock implementation
+    bool IsFree() override;
+    void ResetStop() override;
     void OnTrainApproaching() override;
+    void Clear() override;
+
     void OnTrainEnter();
     void OnTrainLeft();
     void OnTrainSet();
@@ -38,11 +43,9 @@ class Block : public IBlock
 
     void         SetNextBlock(IBlock* block);
     virtual bool IsNextFree();
-    bool         IsFree() override;
     bool         IsBlocked();
     bool         IsLeaving();
     virtual bool IsApproaching();
-    void         ResetStop() override;
     const bool   IsEntered() const;
 
   protected:

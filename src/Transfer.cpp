@@ -67,6 +67,12 @@ void Transfer::OnTrainApproaching()
     }
 }
 
+void Transfer::Clear()
+{
+    storage.Clear();
+    brakeRun.Clear();
+}
+
 void Transfer::OnTrainLeft()
 {
     LOG_INFO(F("Transfer Train Left"));
@@ -176,4 +182,18 @@ bool Transfer::EnterSwitchSafeToMove()
 bool Transfer::ExitSwitchSafeToMove()
 {
     return !storage.IsLeaving() && !brakeRun.IsLeaving();
+}
+
+const int Transfer::CountTrains()
+{
+    int count = 0;
+    if (storage.IsBlocked() || storage.IsApproaching())
+    {
+        count++;
+    }
+    if (brakeRun.IsBlocked() || brakeRun.IsApproaching())
+    {
+        count++;
+    }
+    return count;
 }
