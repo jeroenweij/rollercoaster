@@ -81,6 +81,11 @@ void Mode::ResetRestart()
 {
     for (IBlock* const block : blocks)
     {
+        if (block == nullptr)
+        {
+            break;
+        }
+
         if (clearOnReset)
         {
             block->Clear();
@@ -133,10 +138,10 @@ const bool Mode::IsOn()
     return mode == EMode::MANUAL || mode == EMode::AUTO;
 }
 
-const bool Mode::Error(const bool doClearOnReset)
+const bool Mode::Error(const char* reason, const bool doClearOnReset)
 {
     mode = EMode::STOP;
-    LOG_ERROR(F("ERROR"));
+    LOG_ERROR("Mode::Error: " << reason);
     if (doClearOnReset)
     {
         clearOnReset = true;

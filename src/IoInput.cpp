@@ -26,7 +26,7 @@ void IoInput::ReceivedMessage(const NodeLib::Message& message)
 
 void IoInput::ConnectionLost()
 {
-    Mode::Error();
+    Mode::Error("Connection Lost");
 }
 
 void IoInput::CallCallbacks(const Id& id, const Value& value)

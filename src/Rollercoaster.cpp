@@ -48,7 +48,7 @@ void Rollercoaster::Loop()
     if (Mode::IsOn() && CountTrains() > 2)
     {
         LOG_ERROR(F("Detected too many trains: ") << CountTrains());
-        Mode::Error(true);
+        Mode::Error("Too many trains", true);
     }
 }
 

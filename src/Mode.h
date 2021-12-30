@@ -20,7 +20,7 @@ class Mode
     static const bool  IsAuto();
     static const bool  IsStop();
     static const bool  IsOn();
-    static const bool  Error(const bool doClearOnReset = false);
+    static const bool  Error(const char* reason, const bool doClearOnReset = false);
 
     void AddResetCallback(IBlock* block);
 

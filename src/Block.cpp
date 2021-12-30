@@ -77,7 +77,7 @@ void Block::Loop()
             if (released && releaseTime.Finished())
             {
                 Hold();
-                Mode::Error();
+                Mode::Error("BLOCK NOT RELEASED");
             }
             break;
     }
