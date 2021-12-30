@@ -21,6 +21,7 @@ void Mode::Init()
     pinMode(PIN_MODE_AUTO, INPUT_PULLUP);
     pinMode(PIN_MODE_MANUAL, INPUT_PULLUP);
     pinMode(PIN_E_STOP, INPUT_PULLUP);
+    pinMode(PIN_E_STOP_INV, INPUT_PULLUP);
     pinMode(PIN_E_STOP_RESET, INPUT_PULLUP);
     pinMode(PIN_E_STOP_RESET_LED, OUTPUT);
     digitalWrite(PIN_E_STOP_RESET_LED, LOW);
@@ -33,7 +34,7 @@ void Mode::Loop()
     if (mode == EMode::STOP)
     {
         newMode = EMode::STOP;
-        if (digitalRead(PIN_E_STOP))
+        if (!EStopPressed())
         {
 
             if (digitalRead(PIN_E_STOP_RESET))
@@ -49,7 +50,7 @@ void Mode::Loop()
     }
     else
     {
-        if (!digitalRead(PIN_E_STOP))
+        if (EStopPressed())
         {
             newMode = EMode::STOP;
         }
@@ -81,6 +82,11 @@ void Mode::ResetRestart()
     {
         blocks[i]->ResetStop();
     }
+}
+
+const bool Mode::EStopPressed()
+{
+    return !digitalRead(PIN_E_STOP) || digitalRead(PIN_E_STOP_INV);
 }
 
 void Mode::AddResetCallback(IBlock* block)
