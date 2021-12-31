@@ -56,5 +56,5 @@ const bool Gates::IsOpen()
 void Gates::SetOpen(const bool open)
 {
     opened = open;
-    output.writeTwostate(NodeId::stationGates.id, opened);
+    output.WriteValue(NodeId::stationGates.id, opened ? 180 : 0);
 }
