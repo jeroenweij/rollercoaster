@@ -24,7 +24,8 @@ TrackSwitch::TrackSwitch(IoOutput&          outputHandler,
     valueWhenUnset(valueWhenUnset),
     set(false),
     parent(parent),
-    SafeToMove(func)
+    SafeToMove(func),
+    delayTimer()
 {
     pinMode(inputPin, INPUT_PULLUP);
     pinMode(uiPin, OUTPUT);
@@ -36,6 +37,7 @@ void TrackSwitch::Init()
     pinMode(inputPin, INPUT_PULLUP);
     pinMode(uiPin, OUTPUT);
     digitalWrite(uiPin, LOW);
+    WriteOutput();
 }
 
 void TrackSwitch::Loop()
@@ -49,6 +51,11 @@ void TrackSwitch::Loop()
         }
         nextUpdate.Start(100);
     }
+
+    if (delayTimer.Finished())
+    {
+        parent.SwitchChanged();
+    }
 }
 
 void TrackSwitch::Set(const bool setTo)
@@ -59,7 +66,7 @@ void TrackSwitch::Set(const bool setTo)
         set = setTo;
         WriteOutput();
         digitalWrite(uiPin, set);
-        parent.SwitchChanged();
+        delayTimer.Start(1000);
     }
 }
 

@@ -43,4 +43,5 @@ class TrackSwitch
     bool               set;
     Transfer&          parent;
     bool (Transfer::*SafeToMove)();
+    DelayTimer delayTimer;
 };

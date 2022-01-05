@@ -26,11 +26,12 @@ void setup(void)
     LOG_DEBUG(F("Debug log enabled"));
 
     node.Init(6);
-    rollercoaster.Init();
     digitalWrite(PIN_LED, LOW);
 
     IoConfig config(node);
     config.ConfigureIo();
+
+    rollercoaster.Init();
 
     node.StartPollingNodes();
     LOG_INFO(F("Setup complete"));
