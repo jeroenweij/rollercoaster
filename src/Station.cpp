@@ -83,7 +83,7 @@ void Station::Loop()
         if (IsEntered())
         {
             Release();
-            delayHold.Start(750);
+            delayHold.Start(400);
         }
     }
 

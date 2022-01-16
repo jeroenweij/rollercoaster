@@ -27,6 +27,10 @@ void BrakeRun::Loop()
         {
             Release();
         }
+        else if (IsBlocked() && IsNextFree())
+        {
+            Release();
+        }
     }
 }
 
@@ -48,14 +52,9 @@ void BrakeRun::OnTrainSet()
     LOG_INFO(F("Brakerun Train Set"));
     delayRelease.Stop();
     Block::OnTrainSet();
-    if (IsNextFree())
-    {
-        Release();
-    }
-    else
-    {
-        Hold();
-    }
+
+    Hold();
+    delayRelease.Start(1000);
 }
 
 void BrakeRun::OnTrainCleared()
