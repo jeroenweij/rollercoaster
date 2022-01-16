@@ -39,14 +39,14 @@ namespace NodeId
     static const IoChannel liftSet(4, NodeLib::ChannelId::DIGITAL_1, Operation::VALUE, PinMode::DIGITAL_IN);
     static const IoChannel liftLeft(5, NodeLib::ChannelId::DIGITAL_1, Operation::VALUE, PinMode::DIGITAL_IN);
     // Out
-    static const IoChannel liftMotor(3, NodeLib::ChannelId::MOSFET_2, Operation::SET, PinMode::DIGITAL_OUT);
+    static const IoChannel liftMotor(3, NodeLib::ChannelId::MOSFET_1, Operation::SET, PinMode::DIGITAL_OUT);
 
     // Transfer
     // In
     static const IoChannel brakeRunEnter(5, NodeLib::ChannelId::DIGITAL_2, Operation::VALUE, PinMode::DIGITAL_IN);
     static const IoChannel brakeRunSet(6, NodeLib::ChannelId::DIGITAL_1, Operation::VALUE, PinMode::DIGITAL_IN);
     // Out
-    static const IoChannel brakerunBrake(6, NodeLib::ChannelId::MOSFET_1, Operation::SET, PinMode::DIGITAL_OUT);
+    static const IoChannel brakerunBrake(6, NodeLib::ChannelId::MOSFET_2, Operation::SET, PinMode::DIGITAL_OUT);
     static const IoChannel transferInSwitch(5, NodeLib::ChannelId::DIGITAL_5, Operation::SET, PinMode::SERVO);
     static const IoChannel transferOutSwitch(6, NodeLib::ChannelId::DIGITAL_5, Operation::SET, PinMode::SERVO);
 
@@ -56,7 +56,7 @@ namespace NodeId
     static const IoChannel storageSet(6, NodeLib::ChannelId::DIGITAL_2, Operation::VALUE, PinMode::DIGITAL_IN);
 
     // Out
-    static const IoChannel storageBrake(6, NodeLib::ChannelId::MOSFET_2, Operation::SET, PinMode::DIGITAL_OUT);
+    static const IoChannel storageBrake(6, NodeLib::ChannelId::MOSFET_1, Operation::SET, PinMode::DIGITAL_OUT);
 } // namespace NodeId
 
 class IoConfig
