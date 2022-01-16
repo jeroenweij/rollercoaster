@@ -32,5 +32,6 @@ class Station : public Block
   private:
     LedButton  dispatchButton;
     DelayTimer delayRelease;
+    DelayTimer delayHold;
     Gates      gates;
 };

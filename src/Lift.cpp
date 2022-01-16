@@ -27,15 +27,18 @@ void Lift::OnTrainEnter()
 void Lift::OnTrainSet()
 {
     LOG_INFO(F("Lift Train Set"));
-    Block::OnTrainSet();
-    if (IsNextFree())
+    if (IsApproaching() || IsFree())
     {
-        Release();
-        nextBlock->OnTrainApproaching();
-    }
-    else
-    {
-        Hold();
+        Block::OnTrainSet();
+        if (IsNextFree())
+        {
+            Release();
+            nextBlock->OnTrainApproaching();
+        }
+        else
+        {
+            Hold();
+        }
     }
 }
 

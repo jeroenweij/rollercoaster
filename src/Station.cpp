@@ -12,6 +12,7 @@ Station::Station(IoInput& inputHandler, IoOutput& outputHandler) :
     Block(outputHandler, PIN_UI_STATION_APPR, PIN_UI_STATION_BLOCK, NodeId::stationBrake.id, PIN_MANUAL_STATION),
     dispatchButton(PIN_DISPATCH, PIN_DISPATCH_LED),
     delayRelease(),
+    delayHold(),
     gates(outputHandler)
 {
     inputHandler.AddCallback(NodeId::stationEnter.id, this, &Station::OnTrainEnter, true);
@@ -79,10 +80,19 @@ void Station::Loop()
 
     if (delayRelease.Finished())
     {
-        LOG_INFO(F("Station Action"));
         if (IsEntered())
         {
             Release();
+            delayHold.Start(750);
+        }
+    }
+
+    if (delayHold.Finished())
+    {
+        if (IsEntered())
+        {
+            Hold();
+            delayRelease.Start(500);
         }
     }
 
