@@ -6,7 +6,7 @@
 
 #include "EMode.h"
 #include "IBlock.h"
-
+#include "LedButton.h"
 class Mode
 {
   public:
@@ -32,6 +32,7 @@ class Mode
     static EMode mode;
     static bool  clearOnReset;
 
-    IBlock* blocks[5];
-    int     numBlocks;
+    IBlock*   blocks[5];
+    int       numBlocks;
+    LedButton resetButton;
 };

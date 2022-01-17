@@ -42,7 +42,7 @@ void TrackSwitch::Init()
 
 void TrackSwitch::Loop()
 {
-    if (Mode::IsOn() && (nextUpdate.Finished() || !nextUpdate.isRunning()))
+    if (Mode::IsOn() && (nextUpdate.Finished() || !nextUpdate.IsRunning()))
     {
         const bool setTo = !digitalRead(inputPin);
         if (setTo != set)

@@ -20,7 +20,7 @@ void Button::Init()
 
 const bool Button::IsPressed()
 {
-    if (nextUpdate.Finished() || !nextUpdate.isRunning())
+    if (nextUpdate.Finished() || !nextUpdate.IsRunning())
     {
         const bool newState = !digitalRead(inputPin);
         if (newState != state)

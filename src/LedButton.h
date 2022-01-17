@@ -5,6 +5,7 @@
 #pragma once
 
 #include "Button.h"
+#include "tools/DelayTimer.h"
 
 class LedButton : public Button
 {
@@ -13,7 +14,10 @@ class LedButton : public Button
 
     void Init();
     void SetLed(const bool state);
+    void Blink();
+    void BlinkStop();
 
   private:
-    const int ledPin;
+    const int  ledPin;
+    DelayTimer blinkTimer;
 };

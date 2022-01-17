@@ -11,10 +11,10 @@ EMode Mode::mode         = EMode::OFF;
 bool  Mode::clearOnReset = false;
 
 Mode::Mode() :
-    numBlocks(0)
+    numBlocks(0),
+    resetButton(PIN_E_STOP_RESET, PIN_E_STOP_RESET_LED)
 {
     Init();
-    digitalWrite(PIN_E_STOP_RESET_LED, HIGH);
 }
 
 void Mode::Init()
@@ -24,8 +24,7 @@ void Mode::Init()
     pinMode(PIN_E_STOP, INPUT_PULLUP);
     pinMode(PIN_E_STOP_INV, INPUT_PULLUP);
     pinMode(PIN_E_STOP_RESET, INPUT_PULLUP);
-    pinMode(PIN_E_STOP_RESET_LED, OUTPUT);
-    digitalWrite(PIN_E_STOP_RESET_LED, LOW);
+    resetButton.Init();
 }
 
 void Mode::Loop()
@@ -37,20 +36,21 @@ void Mode::Loop()
         newMode = EMode::STOP;
         if (!EStopPressed())
         {
-            if (digitalRead(PIN_E_STOP_RESET))
+            resetButton.BlinkStop();
+            if (resetButton.IsPressed())
             {
-                digitalWrite(PIN_E_STOP_RESET_LED, HIGH);
+                resetButton.SetLed(false);
+                newMode = EMode::OFF;
+                Reset();
             }
             else
             {
-                digitalWrite(PIN_E_STOP_RESET_LED, LOW);
-                newMode = EMode::OFF;
-                Reset();
+                resetButton.SetLed(true);
             }
         }
         else
         {
-            digitalWrite(PIN_E_STOP_RESET_LED, LOW);
+            resetButton.Blink();
         }
     }
     else
