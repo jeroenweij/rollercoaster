@@ -88,7 +88,7 @@ void Block::OnTrainApproaching()
     SetStatus(EStatus::EXPECTING);
 }
 
-void Block::Clear()
+void Block::Reset()
 {
     SetStatus(EStatus::FREE);
 }
@@ -187,7 +187,7 @@ const bool Block::IsEntered() const
     return status == EStatus::ENTERED;
 }
 
-void Block::ResetStop()
+void Block::Restart()
 {
     if ((status == EStatus::ENTERED) || (status == EStatus::LEAVING) || (status == EStatus::BLOCKED && IsNextFree()))
     {

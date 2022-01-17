@@ -23,9 +23,9 @@ class Transfer : public IBlock
 
     // IBlock implementation
     bool IsFree() override;
-    void ResetStop() override;
+    void Restart() override;
     void OnTrainApproaching() override;
-    void Clear() override;
+    void Reset() override;
 
     void OnTrainLeft();
     void OnNextBlockFreed();

@@ -25,7 +25,8 @@ class Mode
     void AddResetCallback(IBlock* block);
 
   private:
-    void       ResetRestart();
+    void       Reset();
+    void       Restart();
     const bool EStopPressed();
 
     static EMode mode;

@@ -37,7 +37,6 @@ void Mode::Loop()
         newMode = EMode::STOP;
         if (!EStopPressed())
         {
-
             if (digitalRead(PIN_E_STOP_RESET))
             {
                 digitalWrite(PIN_E_STOP_RESET_LED, HIGH);
@@ -46,7 +45,12 @@ void Mode::Loop()
             {
                 digitalWrite(PIN_E_STOP_RESET_LED, LOW);
                 newMode = EMode::OFF;
+                Reset();
             }
+        }
+        else
+        {
+            digitalWrite(PIN_E_STOP_RESET_LED, LOW);
         }
     }
     else
@@ -68,16 +72,17 @@ void Mode::Loop()
     if (mode != newMode)
     {
         LOG_INFO(F("Mode change ") << mode << " -> " << newMode);
+
         mode = newMode;
 
         if (mode == EMode::AUTO)
         {
-            ResetRestart();
+            Restart();
         }
     }
 }
 
-void Mode::ResetRestart()
+void Mode::Reset()
 {
     for (IBlock* const block : blocks)
     {
@@ -88,11 +93,23 @@ void Mode::ResetRestart()
 
         if (clearOnReset)
         {
-            block->Clear();
+            block->Reset();
         }
-        block->ResetStop();
     }
     clearOnReset = false;
+}
+
+void Mode::Restart()
+{
+    for (IBlock* const block : blocks)
+    {
+        if (block == nullptr)
+        {
+            break;
+        }
+
+        block->Restart();
+    }
 }
 
 const bool Mode::EStopPressed()

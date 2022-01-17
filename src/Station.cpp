@@ -51,12 +51,12 @@ void Station::OnNextBlockFreed()
     LOG_INFO(F("Station NextBlockFreed"));
 }
 
-void Station::ResetStop()
+void Station::Restart()
 {
     LOG_INFO(F("Station Stop Reset"));
     if (IsLeaving() || IsEntered())
     {
-        Block::ResetStop();
+        Block::Restart();
     }
 }
 

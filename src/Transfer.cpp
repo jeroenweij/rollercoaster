@@ -67,10 +67,10 @@ void Transfer::OnTrainApproaching()
     }
 }
 
-void Transfer::Clear()
+void Transfer::Reset()
 {
-    storage.Clear();
-    brakeRun.Clear();
+    storage.Reset();
+    brakeRun.Reset();
 }
 
 void Transfer::OnTrainLeft()
@@ -150,15 +150,15 @@ bool Transfer::IsFree()
     }
 }
 
-void Transfer::ResetStop()
+void Transfer::Restart()
 {
     if (this->exitStorage.IsSet())
     {
-        storage.ResetStop();
+        storage.Restart();
     }
     else
     {
-        brakeRun.ResetStop();
+        brakeRun.Restart();
     }
 }
 

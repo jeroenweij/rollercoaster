@@ -31,9 +31,9 @@ class Block : public IBlock
 
     // IBlock implementation
     bool IsFree() override;
-    void ResetStop() override;
+    void Restart() override;
     void OnTrainApproaching() override;
-    void Clear() override;
+    void Reset() override;
 
     void OnTrainEnter();
     void OnTrainLeft();
