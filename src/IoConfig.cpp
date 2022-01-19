@@ -30,6 +30,7 @@ void IoConfig::ConfigureIo()
     ConfigureChannel(NodeId::brakerunBrake);
     ConfigureChannel(NodeId::transferInSwitch);
     ConfigureChannel(NodeId::transferOutSwitch);
+    ConfigureChannel(NodeId::storageEnter);
     ConfigureChannel(NodeId::storageSet);
     ConfigureChannel(NodeId::storageBrake);
 }
