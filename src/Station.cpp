@@ -12,10 +12,10 @@ Station::Station(IoInput& inputHandler, IoOutput& outputHandler) :
     Block(outputHandler, PIN_UI_STATION_APPR, PIN_UI_STATION_BLOCK, NodeId::stationBrake.id, PIN_MANUAL_STATION),
     dispatchButton(PIN_DISPATCH, PIN_DISPATCH_LED),
     delayRelease(),
-    delayHold(),
     gates(outputHandler)
 {
     inputHandler.AddCallback(NodeId::stationEnter.id, this, &Station::OnTrainEnter, true);
+    inputHandler.AddCallback(NodeId::stationHalfway.id, this, &Station::OnTrainHalfway, true);
     inputHandler.AddCallback(NodeId::stationSet.id, this, &Station::OnTrainSet, true);
     inputHandler.AddCallback(NodeId::liftEnter.id, this, &Station::OnTrainLeft, true);
     inputHandler.AddCallback(NodeId::liftLeft.id, this, &Station::OnNextBlockFreed, true);
@@ -26,6 +26,15 @@ void Station::OnTrainEnter()
     LOG_INFO(F("Station Train Enter"));
     Block::OnTrainEnter();
     delayRelease.Start(2000);
+}
+
+void Station::OnTrainHalfway()
+{
+    if (IsApproaching() && IsReleased())
+    {
+        delayRelease.Start(800);
+        Hold();
+    }
 }
 
 void Station::OnTrainSet()
@@ -71,6 +80,7 @@ void Station::Loop()
 {
     Block::Loop();
     const bool canDispatch = IsBlocked() && IsNextFree() && !gates.IsOpen() && Mode::IsAuto();
+
     dispatchButton.SetLed(canDispatch);
 
     if (canDispatch && dispatchButton.IsPressed())
@@ -83,16 +93,6 @@ void Station::Loop()
         if (IsEntered())
         {
             Release();
-            delayHold.Start(400);
-        }
-    }
-
-    if (delayHold.Finished())
-    {
-        if (IsEntered())
-        {
-            Hold();
-            delayRelease.Start(500);
         }
     }
 

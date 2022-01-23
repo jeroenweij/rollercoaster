@@ -22,6 +22,7 @@ class Station : public Block
 
     void OnTrainEnter();
     void OnTrainLeft();
+    void OnTrainHalfway();
     void OnTrainSet();
     void OnNextBlockFreed();
     void Restart() override;
@@ -32,6 +33,5 @@ class Station : public Block
   private:
     LedButton  dispatchButton;
     DelayTimer delayRelease;
-    DelayTimer delayHold;
     Gates      gates;
 };

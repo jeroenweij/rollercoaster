@@ -187,6 +187,11 @@ const bool Block::IsEntered() const
     return status == EStatus::ENTERED;
 }
 
+const bool Block::IsReleased() const
+{
+    return released;
+}
+
 void Block::Restart()
 {
     if ((status == EStatus::ENTERED) || (status == EStatus::LEAVING) || (status == EStatus::BLOCKED && IsNextFree()))

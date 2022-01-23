@@ -47,6 +47,7 @@ class Block : public IBlock
     bool         IsLeaving();
     virtual bool IsApproaching();
     const bool   IsEntered() const;
+    const bool   IsReleased() const;
 
   protected:
     void SetStatus(EStatus newStatus);

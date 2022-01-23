@@ -18,6 +18,7 @@ IoConfig::IoConfig(NodeMaster& node) :
 void IoConfig::ConfigureIo()
 {
     ConfigureChannel(NodeId::stationEnter);
+    ConfigureChannel(NodeId::stationHalfway);
     ConfigureChannel(NodeId::stationSet);
     ConfigureChannel(NodeId::stationBrake);
     ConfigureChannel(NodeId::stationGates);

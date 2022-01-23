@@ -28,6 +28,7 @@ namespace NodeId
     // Station
     // In
     static const IoChannel stationEnter(1, NodeLib::ChannelId::DIGITAL_1, Operation::VALUE, PinMode::DIGITAL_IN);
+    static const IoChannel stationHalfway(1, NodeLib::ChannelId::DIGITAL_3, Operation::VALUE, PinMode::DIGITAL_IN);
     static const IoChannel stationSet(1, NodeLib::ChannelId::DIGITAL_2, Operation::VALUE, PinMode::DIGITAL_IN);
     // Out
     static const IoChannel stationBrake(1, NodeLib::ChannelId::MOSFET_2, Operation::SET, PinMode::DIGITAL_OUT);
