@@ -1,6 +1,6 @@
 /*************************************************************
-* Created by J. Weij
-*************************************************************/
+ * Created by J. Weij
+ *************************************************************/
 
 #pragma once
 #include <NodeLib/EPinMode.h>
@@ -45,7 +45,8 @@ namespace NodeId
     // Transfer
     // In
     static const IoChannel brakeRunEnter(5, NodeLib::ChannelId::DIGITAL_2, Operation::VALUE, PinMode::DIGITAL_IN);
-    static const IoChannel brakeRunSet(6, NodeLib::ChannelId::DIGITAL_1, Operation::VALUE, PinMode::DIGITAL_IN);
+    static const IoChannel brakeRunSet(6, NodeLib::ChannelId::DIGITAL_3, Operation::VALUE, PinMode::DIGITAL_IN);
+    static const IoChannel brakeRunHalfway(6, NodeLib::ChannelId::DIGITAL_1, Operation::VALUE, PinMode::DIGITAL_IN);
     // Out
     static const IoChannel brakerunBrake(6, NodeLib::ChannelId::MOSFET_2, Operation::SET, PinMode::DIGITAL_OUT);
     static const IoChannel transferInSwitch(5, NodeLib::ChannelId::DIGITAL_5, Operation::SET, PinMode::SERVO);
@@ -55,6 +56,7 @@ namespace NodeId
     // In
     static const IoChannel storageEnter(5, NodeLib::ChannelId::DIGITAL_3, Operation::VALUE, PinMode::DIGITAL_IN);
     static const IoChannel storageSet(6, NodeLib::ChannelId::DIGITAL_2, Operation::VALUE, PinMode::DIGITAL_IN);
+    static const IoChannel storageHalfway(6, NodeLib::ChannelId::DIGITAL_4, Operation::VALUE, PinMode::DIGITAL_IN);
 
     // Out
     static const IoChannel storageBrake(6, NodeLib::ChannelId::MOSFET_1, Operation::SET, PinMode::DIGITAL_OUT);

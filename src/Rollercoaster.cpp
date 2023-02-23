@@ -55,11 +55,11 @@ void Rollercoaster::Loop()
 const int Rollercoaster::CountTrains()
 {
     int count = 0;
-    if (station.IsBlocked() || station.IsApproaching())
+    if (station.IsBlocked() || station.IsExpectingorEntered())
     {
         count++;
     }
-    if (lift.IsBlocked() || lift.IsApproaching())
+    if (lift.IsBlocked() || lift.IsExpectingorEntered())
     {
         count++;
     }

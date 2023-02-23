@@ -1,6 +1,6 @@
 /*************************************************************
-* Created by J. Weij
-*************************************************************/
+ * Created by J. Weij
+ *************************************************************/
 
 #include "Station.h"
 #include "Arduino.h"
@@ -30,7 +30,7 @@ void Station::OnTrainEnter()
 
 void Station::OnTrainHalfway()
 {
-    if (IsApproaching() && IsReleased())
+    if (IsEntered() && IsReleased())
     {
         delayRelease.Start(800);
         Hold();
@@ -39,7 +39,7 @@ void Station::OnTrainHalfway()
 
 void Station::OnTrainSet()
 {
-    if (IsApproaching() || IsFree())
+    if (IsExpectingorEntered() || IsFree())
     {
         LOG_INFO(F("Station Train Set"));
         delayRelease.Stop();

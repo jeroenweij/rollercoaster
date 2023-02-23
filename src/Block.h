@@ -1,6 +1,6 @@
 /*************************************************************
-* Created by J. Weij
-*************************************************************/
+ * Created by J. Weij
+ *************************************************************/
 
 #pragma once
 
@@ -45,7 +45,8 @@ class Block : public IBlock
     virtual bool IsNextFree();
     bool         IsBlocked();
     bool         IsLeaving();
-    virtual bool IsApproaching();
+    virtual bool IsExpectingorEntered();
+    const bool   IsExpecting() const;
     const bool   IsEntered() const;
     const bool   IsReleased() const;
 

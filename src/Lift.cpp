@@ -27,7 +27,7 @@ void Lift::OnTrainEnter()
 void Lift::OnTrainSet()
 {
     LOG_INFO(F("Lift Train Set"));
-    if (IsApproaching() || IsFree())
+    if (IsExpectingorEntered() || IsFree())
     {
         Block::OnTrainSet();
         if (IsNextFree())

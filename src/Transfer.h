@@ -31,7 +31,7 @@ class Transfer : public IBlock
     void OnNextBlockFreed();
     void SetNextBlock(IBlock* block);
     void SwitchChanged();
-    bool IsApproaching();
+    bool IsExpectingorEntered();
 
     bool EnterSwitchSafeToMove();
     bool ExitSwitchSafeToMove();

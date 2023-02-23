@@ -1,6 +1,6 @@
 /*************************************************************
-* Created by J. Weij
-*************************************************************/
+ * Created by J. Weij
+ *************************************************************/
 
 #include "BrakeRun.h"
 #include "Arduino.h"
@@ -12,6 +12,7 @@ BrakeRun::BrakeRun(IoOutput& outputHandler, IoInput& inputHandler, BrakeRunIds& 
     isStorage(isStorage),
     delayRelease()
 {
+    inputHandler.AddCallback(nodeIds.onTrainHalfway, this, &BrakeRun::OnTrainHalfway, true);
     inputHandler.AddCallback(nodeIds.onTrainEnter, this, &BrakeRun::OnTrainEnter, true);
     inputHandler.AddCallback(nodeIds.onTrainSet, this, &BrakeRun::OnTrainSet, true);
     inputHandler.AddCallback(nodeIds.onTrainCleared, this, &BrakeRun::OnTrainCleared, true);
@@ -34,6 +35,15 @@ void BrakeRun::Loop()
     }
 }
 
+void BrakeRun::OnTrainHalfway()
+{
+    if (IsEntered() && IsReleased())
+    {
+        delayRelease.Start(800);
+        Hold();
+    }
+}
+
 void BrakeRun::OnTrainApproaching()
 {
     LOG_INFO(F("Brakerun Train Approaching"));
@@ -42,9 +52,13 @@ void BrakeRun::OnTrainApproaching()
 
 void BrakeRun::OnTrainEnter()
 {
-    LOG_INFO(F("Brakerun Train Enter"));
-    Block::OnTrainEnter();
-    delayRelease.Start(2000);
+    if (IsExpecting())
+    {
+        LOG_INFO(F("Brakerun Train Enter "));
+        Block::OnTrainEnter();
+
+        delayRelease.Start(1000);
+    }
 }
 
 void BrakeRun::OnTrainSet()
@@ -54,7 +68,7 @@ void BrakeRun::OnTrainSet()
     Block::OnTrainSet();
 
     Hold();
-    delayRelease.Start(1000);
+    delayRelease.Start(500);
 }
 
 void BrakeRun::OnTrainCleared()

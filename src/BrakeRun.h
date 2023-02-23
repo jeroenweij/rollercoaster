@@ -1,6 +1,6 @@
 /*************************************************************
-* Created by J. Weij
-*************************************************************/
+ * Created by J. Weij
+ *************************************************************/
 
 #pragma once
 
@@ -19,6 +19,7 @@ struct BrakeRunIds
     const int          overridePin;
     const NodeLib::Id& blockDevice;
     const NodeLib::Id& onTrainEnter;
+    const NodeLib::Id& onTrainHalfway;
     const NodeLib::Id& onTrainSet;
     const NodeLib::Id& onTrainCleared;
 };
@@ -36,6 +37,7 @@ class BrakeRun : public Block
     void OnTrainLeft();
     void OnTrainSet();
     void OnTrainCleared();
+    void OnTrainHalfway();
     void OnNextBlockFreed();
     bool IsNextFree() override;
 

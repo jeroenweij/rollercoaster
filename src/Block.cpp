@@ -1,6 +1,6 @@
 /*************************************************************
-* Created by J. Weij
-*************************************************************/
+ * Created by J. Weij
+ *************************************************************/
 
 #include "Block.h"
 #include "Arduino.h"
@@ -95,12 +95,15 @@ void Block::Reset()
 
 void Block::OnTrainEnter()
 {
-    SetStatus(EStatus::ENTERED);
+    if (IsFree() || IsExpectingorEntered())
+    {
+        SetStatus(EStatus::ENTERED);
+    }
 }
 
 void Block::OnTrainSet()
 {
-    if (IsApproaching() || IsFree())
+    if (IsExpectingorEntered() || IsFree())
     {
         SetStatus(EStatus::BLOCKED);
     }
@@ -177,7 +180,7 @@ bool Block::IsLeaving()
     return this->status == EStatus::LEAVING;
 }
 
-bool Block::IsApproaching()
+bool Block::IsExpectingorEntered()
 {
     return this->status == EStatus::EXPECTING || status == EStatus::ENTERED;
 }
@@ -185,6 +188,11 @@ bool Block::IsApproaching()
 const bool Block::IsEntered() const
 {
     return status == EStatus::ENTERED;
+}
+
+const bool Block::IsExpecting() const
+{
+    return status == EStatus::EXPECTING;
 }
 
 const bool Block::IsReleased() const

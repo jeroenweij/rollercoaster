@@ -1,6 +1,6 @@
 /*************************************************************
-* Created by J. Weij
-*************************************************************/
+ * Created by J. Weij
+ *************************************************************/
 
 #include "Transfer.h"
 #include "IoConfig.h"
@@ -12,6 +12,7 @@ BrakeRunIds brakeRunIds = {
     .overridePin    = PIN_MANUAL_BRAKE,
     .blockDevice    = NodeId::brakerunBrake.id,
     .onTrainEnter   = NodeId::brakeRunEnter.id,
+    .onTrainHalfway = NodeId::brakeRunHalfway.id,
     .onTrainSet     = NodeId::brakeRunSet.id,
     .onTrainCleared = NodeId::stationEnter.id,
 };
@@ -22,6 +23,7 @@ BrakeRunIds storageTrackIds = {
     .overridePin    = PIN_MANUAL_STORAGE,
     .blockDevice    = NodeId::storageBrake.id,
     .onTrainEnter   = NodeId::storageEnter.id,
+    .onTrainHalfway = NodeId::storageHalfway.id,
     .onTrainSet     = NodeId::storageSet.id,
     .onTrainCleared = NodeId::stationEnter.id,
 };
@@ -162,21 +164,21 @@ void Transfer::Restart()
     }
 }
 
-bool Transfer::IsApproaching()
+bool Transfer::IsExpectingorEntered()
 {
     if (this->enterStorage.IsSet())
     {
-        return storage.IsApproaching();
+        return storage.IsExpectingorEntered();
     }
     else
     {
-        return brakeRun.IsApproaching();
+        return brakeRun.IsExpectingorEntered();
     }
 }
 
 bool Transfer::EnterSwitchSafeToMove()
 {
-    return !IsApproaching();
+    return !IsExpectingorEntered();
 }
 
 bool Transfer::ExitSwitchSafeToMove()
@@ -187,11 +189,11 @@ bool Transfer::ExitSwitchSafeToMove()
 const int Transfer::CountTrains()
 {
     int count = 0;
-    if (storage.IsBlocked() || storage.IsApproaching())
+    if (storage.IsBlocked() || storage.IsExpectingorEntered())
     {
         count++;
     }
-    if (brakeRun.IsBlocked() || brakeRun.IsApproaching())
+    if (brakeRun.IsBlocked() || brakeRun.IsExpectingorEntered())
     {
         count++;
     }
